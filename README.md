@@ -11,7 +11,7 @@ This repository serves as a template for OZG-Hub processes. It includes all nece
 * [ ] Close your IDEs (like IntelliJ), as they would otherwise automatically modify config files
 * [ ] Create a new repository with the host of your choice (GitHub, GitLab, Bitbucket, ...) for your new project.
 * [ ] Clone this newly created project, add a `README.md` file and do an initial commit
-* [ ] Add this template as a new remote (suggested name: `template`) to your new repo: `git remote add template https://example.org/TODO-path-to-template.git`
+* [ ] Add this template as a new remote (suggested name: `template`) to your new repo: `git remote add template https://github.com/OZG-Hub/ozghub-process-template.git`
 * [ ] Download all files from the new remote: `git fetch --all`
 * [ ] Merge the template files: `git merge template/master --allow-unrelated-histories` 
 * [ ] Ensure that the `README.md` you've created, and the one from this template no longer have any conflicts. You probably want to remove the introduction and the "Creating your own process" section.
