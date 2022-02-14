@@ -10,6 +10,37 @@ buildscript {
   }
 }
 
+def serviceportalDependenciesVersion = "1.113.7"
+dependencies {
+  [
+          "org.codehaus.groovy:groovy-all:3.0.6",
+          "org.activiti:activiti-engine:5.22.0"
+
+          /*
+          You may want to include dependencies to common serviceportal-API-objects (like "FormContent"
+          for accessing user-provided data). These APIs contain proprietary code by SEITENBAU and are
+          not distributed freely (and therefore can not be found in the usual maven repositories).
+          You can request access to these files by contacting ozg-hub@seitenbau.com.
+          If you have access to these files, feel free to uncomment the following code:
+          "de.seitenbau.serviceportal:formular-api:${serviceportalDependenciesVersion}",
+          "de.seitenbau.serviceportal:prozess-api:${serviceportalDependenciesVersion}",
+          "de.seitenbau.serviceportal:api-common:${serviceportalDependenciesVersion}",
+          "de.seitenbau.serviceportal:prozess-service:${serviceportalDependenciesVersion}"
+          */
+
+  ].each { dep ->
+    implementation(dep) {
+      // Required to remove unneeded logging frameworks that break the build
+      // See: https://stackoverflow.com/a/59667631/3298787
+      exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+  }
+
+  // testing
+  implementation group: 'net.bytebuddy', name: 'byte-buddy-gradle-plugin', version: '1.10.1'
+  testImplementation "org.spockframework:spock-core:2.0-M3-groovy-3.0"
+}
+
 apply plugin: "de.seitenbau.ozghub.prozessdeployment"
 apply plugin: "de.seitenbau.serviceportal.prozesspipeline"
 
