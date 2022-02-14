@@ -1,0 +1,78 @@
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "de.seitenbau.ozghub.prozessdeployment:ozghub-prozessdeployment-gradle-plugin:2022-01-20-4"
+    classpath "de.seitenbau.serviceportal.prozesspipeline:prozess-pipeline-gradle-plugin:2021.12.14-0"
+  }
+}
+
+apply plugin: "de.seitenbau.ozghub.prozessdeployment"
+apply plugin: "de.seitenbau.serviceportal.prozesspipeline"
+
+listProcesses {
+  url = getVariableValue("url")
+  user = getVariableValue("user")
+  password = getVariableValue("password")
+}
+
+listForms {
+  url = getVariableValue("url")
+  user = getVariableValue("user")
+  password = getVariableValue("password")
+}
+
+undeployProcess {
+  url = getVariableValue("url")
+  user = getVariableValue("user")
+  password = getVariableValue("password")
+  deploymentId = getVariableValue("deploymentId")
+  deleteProcessInstances = getVariableValue("deleteProcessInstances")
+}
+
+undeployForm {
+  url = getVariableValue("url")
+  user = getVariableValue("user")
+  password = getVariableValue("password")
+  deploymentId = getVariableValue("deploymentId")
+}
+
+deployProcess {
+  url = getVariableValue("url")
+  user = getVariableValue("user")
+  password = getVariableValue("password")
+  files = getVariableValue("files")
+  deploymentName = getVariableValue("deploymentName")
+  duplicateProcesskeyAction = getVariableValue("duplicateProcesskeyAction")
+  engine = getVariableValue("engine")
+}
+
+deployForms {
+  url = getVariableValue("url")
+  user = getVariableValue("user")
+  password = getVariableValue("password")
+  files = getVariableValue("files")
+}
+
+mergeScripts {
+  debug = getVariableValue('debug', false)
+}
+
+buildModel {
+  debug = getVariableValue('debug', false)
+  mandant = getVariableValue('1', false)
+  dependsOn 'mergeScripts'
+}
+
+def getVariableValue(name, defaultValue)
+{
+  return project.hasProperty(name) ? project.property(name) : defaultValue
+}
+
+def getVariableValue(name)
+{
+  return getVariableValue(name, null)
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="ELEKTRONISCHER_ANTRAG">
+  <process id="mMANDANTENID.CustomerProcessNameAllCamelCase" name="Benutzerinfo Auslesen (BITBW)" isExecutable="true">
+    <startEvent id="processStart" name="Start"></startEvent>
+    <scriptTask id="exampelScript" name="Beispielscripttask" scriptFormat="groovy" activiti:autoStoreVariables="false"></scriptTask>
+    <userTask id="exampleForm" name="Beispielformular" activiti:assignee="${startedBy}" activiti:formKey="formular:102:benutzerAuslesen:v1.0"></userTask>
+    <userTask id="finalPage" name="Der Prozess wurde beendet" activiti:assignee="${startedBy}" activiti:formKey="showOnce">
+      <documentation>Ihr Antrag ist eingegangen. Sie können dieses Browserfenster nun schließen.
+
+{{STARTSEITE}}
+{{AUFGABENLISTE}}</documentation>
+    </userTask>
+    <endEvent id="processEnd" name="End"></endEvent>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_mMANDANTENID.CustomerProcessNameAllCamelCase">
+    <bpmndi:BPMNPlane bpmnElement="mMANDANTENID.CustomerProcessNameAllCamelCase" id="BPMNPlane_mMANDANTENID.CustomerProcessNameAllCamelCase">
+      <bpmndi:BPMNShape bpmnElement="processStart" id="BPMNShape_processStart">
+        <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="192.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exampelScript" id="BPMNShape_exampelScript">
+        <omgdc:Bounds height="60.0" width="100.0" x="160.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exampleForm" id="BPMNShape_exampleForm">
+        <omgdc:Bounds height="60.0" width="100.0" x="160.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="finalPage" id="BPMNShape_finalPage">
+        <omgdc:Bounds height="60.0" width="100.0" x="310.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="processEnd" id="BPMNShape_processEnd">
+        <omgdc:Bounds height="35.0" width="35.0" x="480.0" y="192.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
