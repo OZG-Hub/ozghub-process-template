@@ -2,7 +2,13 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="ELEKTRONISCHER_ANTRAG">
   <process id="mMANDANTENID.customerNameProcessNameAllCamelCase" name="Replace_me_with_a_user_facing_process_name" isExecutable="true">
     <startEvent id="processStart" name="Start"></startEvent>
-    <scriptTask id="exampelScript" name="Beispielscripttask" scriptFormat="groovy" activiti:autoStoreVariables="false"></scriptTask>
+    <scriptTask id="exampleScript" name="Beispielscripttask" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>// This code will be replaced by the build script. It is important
+// that this (or any other) comment is written here in the bpmn file
+// as the "buildModel" gradle task would otherwise create an empty
+// "xmlns" attribute, which would later lead to the very confusing
+// "Unexpected character" exception when trying to deploy the model.</script>
+    </scriptTask>
     <userTask id="exampleForm" name="Beispielformular" activiti:assignee="${startedBy}" activiti:formKey="formular:MANDANTENID:CUSTOMER_PROCESS_FORMNAME:v1.0"></userTask>
     <userTask id="finalPage" name="Der Prozess wurde beendet" activiti:assignee="${startedBy}" activiti:formKey="showOnce">
       <documentation>Ihr Antrag ist eingegangen. Sie können dieses Browserfenster nun schließen.
@@ -17,7 +23,7 @@
       <bpmndi:BPMNShape bpmnElement="processStart" id="BPMNShape_processStart">
         <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="192.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="exampelScript" id="BPMNShape_exampelScript">
+      <bpmndi:BPMNShape bpmnElement="exampleScript" id="BPMNShape_exampleScript">
         <omgdc:Bounds height="60.0" width="100.0" x="160.0" y="270.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exampleForm" id="BPMNShape_exampleForm">
