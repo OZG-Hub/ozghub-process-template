@@ -10,6 +10,15 @@ buildscript {
   }
 }
 
+plugins {
+  id 'java'
+  id 'groovy'
+}
+
+repositories {
+  mavenCentral()
+}
+
 def serviceportalDependenciesVersion = "1.113.7"
 dependencies {
   [
