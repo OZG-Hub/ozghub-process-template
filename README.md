@@ -17,9 +17,10 @@ This repository serves as a template for OZG-Hub processes. It includes all nece
 * [ ] Ensure that the `README.md` you've created, and the one from this template no longer have any conflicts. You probably want to remove the introduction and the "Creating your own process" section.
 * [ ] Commit the merge of the template project: `git commit` 
 * [ ] Edit the project name in `settings.gradle` (use the `<customerNameCamelCase>-<processNameCamelCase>` format). You can now open your IDEs again.
-* [ ] Rename the process model file (`./models/customerNameProcessName.bpmn`) 
+* [ ] Rename the process model file (`./models/customerNameProcessName.bpmn`). Use the same format as above, but remove dashes `-`. 
 * [ ] Open the process model file with the "Activiti Eclipse BPMN 2.0 Designer", and rename the process ID. Use this format: `m<MandantenId>.<customerName><processName>` 
-* [ ] Rename the subfolder in `./scripts/` to use the same name as for the process ID.
+* [ ] Also update the `Name` attribute in the same window to show a user-friendly name of the process. This will late be seen on the page listing all available processes.
+* [ ] Rename the subfolder in `./scripts/` to use the same name as for the process ID. Do **not** include the "Mandanten-ID" or the dot `.`. Example: `scripts/testCityTestProcess/exampleScript.groovy`
 * [ ] Commit the changes. 
 * [ ] `git push` the changes.
 
@@ -53,13 +54,13 @@ The build pipeline is managed via gradle (and the included gradle wrapper `gradl
    1. For each form: undeploy that form:
 
       ```bash
-      ./gradlew undeployF --Purl="$OZGH_URL" -Puser="$OZGH_USERNAME" -Ppassword="$OZGH_PASSWORD" -PdeploymentId=REPLACE_ME_WITH_ID_FROM_PREVIOUS_STEP
+      ./gradlew undeployF -Purl="$OZGH_URL" -Puser="$OZGH_USERNAME" -Ppassword="$OZGH_PASSWORD" -PdeploymentId=REPLACE_ME_WITH_ID_FROM_PREVIOUS_STEP
       ```
 
    1. for each process model (there usually is only one): undeploy that model:
 
       ```bash
-      ./gradlew undeployP --Purl="$OZGH_URL" -Puser="$OZGH_USERNAME" -Ppassword="$OZGH_PASSWORD" -PdeploymentId=REPLACE_ME_WITH_ID_FROM_PREVIOUS_STEP -PdeleteProcessInstances=true
+      ./gradlew undeployP -Purl="$OZGH_URL" -Puser="$OZGH_USERNAME" -Ppassword="$OZGH_PASSWORD" -PdeleteProcessInstances=true -PdeploymentId=REPLACE_ME_WITH_ID_FROM_PREVIOUS_STEP
       ```
 
 1. Build and deploy the new version: 
