@@ -3,7 +3,7 @@
   <process id="mMANDANTENID.customerNameProcessNameAllCamelCase" name="Benutzerinfo Auslesen (BITBW)" isExecutable="true">
     <startEvent id="processStart" name="Start"></startEvent>
     <scriptTask id="exampelScript" name="Beispielscripttask" scriptFormat="groovy" activiti:autoStoreVariables="false"></scriptTask>
-    <userTask id="exampleForm" name="Beispielformular" activiti:assignee="${startedBy}" activiti:formKey="formular:102:benutzerAuslesen:v1.0"></userTask>
+    <userTask id="exampleForm" name="Beispielformular" activiti:assignee="${startedBy}" activiti:formKey="formular:MANDANTENID:CUSTOMER_PROCESS_FORMNAME:v1.0"></userTask>
     <userTask id="finalPage" name="Der Prozess wurde beendet" activiti:assignee="${startedBy}" activiti:formKey="showOnce">
       <documentation>Ihr Antrag ist eingegangen. Sie können dieses Browserfenster nun schließen.
 
