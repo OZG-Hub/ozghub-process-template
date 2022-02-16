@@ -1,1 +1,1 @@
-rootProject.name = 'Replaceme' // TODO: Replace when cloned!
+rootProject.name = 'processTemplate-ozgHub' // TODO: Replace with '<customerNameCamelCase>-<processNameCamelCase>'. Also update ./idea/.name to match this!

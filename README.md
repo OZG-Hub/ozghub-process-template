@@ -16,7 +16,7 @@ This repository serves as a template for OZG-Hub processes. It includes all nece
 * [ ] Merge the template files: `git merge template/master --allow-unrelated-histories` 
 * [ ] Ensure that the `README.md` you've created, and the one from this template no longer have any conflicts. You probably want to remove the introduction and the "Creating your own process" section.
 * [ ] Commit the merge of the template project: `git commit` 
-* [ ] Edit the project name in `settings.gradle` (use the `<customerNameCamelCase>-<processNameCamelCase>` format). You can now open your IDEs again.
+* [ ] Edit the project name in `settings.gradle` and in `.idea/.name` (use the `<customerNameCamelCase>-<processNameCamelCase>` format). You can now open your IDEs again.
 * [ ] Rename the process model file (`./models/customerNameProcessName.bpmn`). Use the same format as above, but remove dashes `-`. 
 * [ ] Open the process model file with the "Activiti Eclipse BPMN 2.0 Designer", and rename the process ID. Use this format: `m<MandantenId>.<customerName><processName>` 
 * [ ] Also update the `Name` attribute in the same window to show a user-friendly name of the process. This will late be seen on the page listing all available processes.
@@ -39,7 +39,7 @@ The build pipeline is managed via gradle (and the included gradle wrapper `gradl
 
 1. If you use Unit tests, run them all: `./gradlew test` and fix any issues.
 
-1. Store the deployment configuration in environment variables for convenience. (e.g. by setting the via `OZGH_URL="xxx"; OZGH_USERNAME="xxx"; OZGH_PASSWORD="xxx"`)
+1. Store the deployment configuration in environment variables for convenience. (e.g. by setting them via `OZGH_URL="xxx"; OZGH_USERNAME="xxx"; OZGH_PASSWORD="xxx"`)
 
 1. Undeploy all existing forms and process models:
 
