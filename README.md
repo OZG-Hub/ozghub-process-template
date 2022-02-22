@@ -6,7 +6,7 @@ This repository serves as a template for OZG-Hub processes (also called "Onlined
 
 * [ ] [Eclipse IDE](https://www.eclipse.org/eclipseide/) with installed [Activiti Eclipse BPMN 2.0 Designer](https://www.activiti.org/designer/update/) plugin
 * [ ] Java version 11+: Enter `java --version` into a terminal and check the output.
-* [ ] (optional) Another IDE to edit groovy script files. SEITENBAU recommends [IntelliJ IDEA](https://www.jetbrains.com/idea/)
+* [ ] (optional) Another IDE to edit groovy script files. We recommend [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 
 ## Creating your own process
 
@@ -49,7 +49,7 @@ The build pipeline is managed via gradle (and the included gradle wrapper `gradl
       ./gradlew listP listF -Purl="$OZGH_URL" -Puser="$OZGH_USERNAME" -Ppassword="$OZGH_PASSWORD"
       ```
    1. Note which of these process models and forms will be replaced by your later deployment and note their `deploymentId`:
-      ![For processes, the deployment ID is located in the rightmost column. For forms right of the form language.](documentation/where-to-find-deployment-id.png)
+      ![For processes, the deployment ID is located in the rightmost column. For forms, to the right of the form language.](documentation/where-to-find-deployment-id.png)
    1. For each form: undeploy that form:
       ```bash
       ./gradlew undeployF -Purl="$OZGH_URL" -Puser="$OZGH_USERNAME" -Ppassword="$OZGH_PASSWORD" -PdeploymentId=REPLACE_ME_WITH_ID_FROM_PREVIOUS_STEP
