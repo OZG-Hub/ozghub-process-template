@@ -19,7 +19,7 @@ repositories {
   mavenCentral()
 }
 
-def serviceportalDependenciesVersion = "1.113.7"
+def serviceportalDependenciesVersion = "1.142.9"
 dependencies {
   [
           "org.codehaus.groovy:groovy-all:3.0.6",
