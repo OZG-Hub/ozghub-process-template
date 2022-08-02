@@ -5,7 +5,7 @@ This repository serves as a template for OZG-Hub processes (also called "Onlined
 ## Prerequisites
 
 * [ ] [Eclipse IDE](https://www.eclipse.org/eclipseide/) with installed [Activiti Eclipse BPMN 2.0 Designer](https://www.activiti.org/designer/update/) plugin
-* [ ] Java version 11+: Enter `java --version` into a terminal and check the output.
+* [ ] Java version 11: Enter `java --version` into a terminal and check the output. Newer versions will not work.
 * [ ] (optional) Another IDE to edit groovy script files. We recommend [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 
 ## Creating your own process
