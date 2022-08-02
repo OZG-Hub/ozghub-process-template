@@ -73,13 +73,11 @@ After deployment (see [Building and deploying the process model](#Building-and-d
 
 ## Process parameters
 
-> **Warning**
->
-> The process parameters feature for OZG-Hub is currently (2022-08-02) under development and not usable yet.
-
 > **Note**
 >
-> This section can be used to describe your required parameters in the Jesaja system.
+> This section can be used to document the parameters of your process. The actual configuration in
+> the Jesaja system cannot be done by a process developer. Please email ozg-hub@seitenbau.com and 
+> include the table of your processes.
 
 This process uses the following process parameters that need to be configured in Jesaja:
 
