@@ -5,7 +5,7 @@ This repository serves as a template for OZG-Hub processes (also called "Onlined
 ## Prerequisites
 
 * [ ] [Eclipse IDE](https://www.eclipse.org/eclipseide/) with installed [Activiti Eclipse BPMN 2.0 Designer](https://www.activiti.org/designer/update/) plugin
-* [ ] Java version 11+: Enter `java --version` into a terminal and check the output.
+* [ ] Java version 11: Enter `java --version` into a terminal and check the output. Newer versions will not work.
 * [ ] (optional) Another IDE to edit groovy script files. We recommend [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 
 ## Creating your own process
@@ -73,13 +73,11 @@ After deployment (see [Building and deploying the process model](#Building-and-d
 
 ## Process parameters
 
-> ##### Warning
+> **Note**
 >
-> The process parameters feature for OZG-Hub is currently (2022-02-17) under development and not usable yet.
-
-> #### Note
->
-> After forking the process template repository, you may want to edit this section
+> This section can be used to document the parameters of your process. The actual configuration in
+> the Jesaja system cannot be done by a process developer. Please email ozg-hub@seitenbau.com and 
+> include the table of your processes.
 
 This process uses the following process parameters that need to be configured in Jesaja:
 
