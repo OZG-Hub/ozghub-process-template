@@ -43,3 +43,8 @@ gradle-app.setting
 !gradle-wrapper.jar
 .gradletasknamecache
 **/build/
+
+# macOS
+.DS_Store
+._*
+
