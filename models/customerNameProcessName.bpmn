@@ -9,8 +9,8 @@
 // "xmlns" attribute, which would later lead to the very confusing
 // "Unexpected character" exception when trying to deploy the model.</script>
     </scriptTask>
-    <userTask id="exampleForm" name="Beispielformular" activiti:assignee="${startParameters.startedByUser.userId}" activiti:formKey="formular:MANDANTENID:CUSTOMER_PROCESS_FORMNAME:v1.0"></userTask>
-    <userTask id="finalPage" name="Der Prozess wurde beendet" activiti:assignee="${startParameters.startedByUser.userId}" activiti:formKey="showOnce">
+    <userTask id="exampleForm" name="Beispielformular" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:MANDANTENID:CUSTOMER_PROCESS_FORMNAME:v1.0"></userTask>
+    <userTask id="finalPage" name="Der Prozess wurde beendet" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="showOnce">
       <documentation>Ihr Antrag ist eingegangen. Sie können dieses Browserfenster nun schließen.
 
 {{STARTSEITE}}
