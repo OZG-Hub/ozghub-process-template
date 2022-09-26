@@ -1,18 +1,8 @@
-buildscript {
-  repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
-  }
-  dependencies {
-    classpath "de.seitenbau.ozghub.prozessdeployment:ozghub-prozessdeployment-gradle-plugin:2022-01-20-4"
-  }
-}
-
 plugins {
   id 'java'
   id 'groovy'
   id "de.seitenbau.serviceportal.prozesspipeline" version "2022.09.01-0"
+  id "de.seitenbau.ozghub.prozessdeployment" version "2022.09.13-0"
 }
 
 repositories {
@@ -49,9 +39,6 @@ dependencies {
   implementation group: 'net.bytebuddy', name: 'byte-buddy-gradle-plugin', version: '1.10.1'
   testImplementation "org.spockframework:spock-core:2.0-M3-groovy-3.0"
 }
-
-apply plugin: "de.seitenbau.ozghub.prozessdeployment"
-apply plugin: "de.seitenbau.serviceportal.prozesspipeline"
 
 listProcesses {
   url = getVariableValue("url")
