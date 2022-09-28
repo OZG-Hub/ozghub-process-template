@@ -71,6 +71,7 @@ deployProcess {
   url = getVariableValue("url")
   user = getVariableValue("user")
   password = getVariableValue("password")
+  versionName = getVariableValue("versionName")
   files = getVariableValue("files")
   deploymentName = getVariableValue("deploymentName")
   duplicateProcesskeyAction = getVariableValue("duplicateProcesskeyAction")
