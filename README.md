@@ -60,10 +60,10 @@ The build pipeline is managed via gradle (and the included gradle wrapper `gradl
       ```
 1. Build and deploy the new version: 
    ```bash
-   ./gradlew buildModel deployP deployF -Purl="$OZGH_URL" -Puser="$OZGH_USERNAME" -Ppassword="$OZGH_PASSWORD" -PdeploymentName=REPLACE_ME
+   ./gradlew buildModel deployP deployF -Purl="$OZGH_URL" -Puser="$OZGH_USERNAME" -Ppassword="$OZGH_PASSWORD" -PdeploymentName=REPLACE_ME -PversionName=REPLACE_ME_TOO
    ```
 
-   *(Note: The `deploymentName` parameter is used to identify a specific deployment of a process model. It will be shown on the output of the `listP` task. We suggest using your own name and the process name.)*
+   *(Note: The `deploymentName` parameter is used to identify a specific deployment of a process model. It will be shown on the output of the `listP` task. We suggest using your own name and the process name. The `versionName` parameter is used to specify the version of the processmodel.)*
 
 More details about the gradle plugin and the provided task can be found at: [GitHub -> Prozess-Deployment-Gradle-Plugin für den OZG-Hub](https://github.com/OZG-Hub/ozghub-prozess-gradle-plugin)
 
