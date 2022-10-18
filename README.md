@@ -41,29 +41,14 @@ This template includes an example for a form in the `./forms` subfolder. You can
 
 The build pipeline is managed via gradle (and the included gradle wrapper `gradlew`).
 
-1. If you use Unit tests, run them all: `./gradlew test` and fix any issues.
-1. Store the deployment configuration in environment variables for convenience. (e.g. by setting them via `OZGH_URL="xxx"; OZGH_USERNAME="xxx"; OZGH_PASSWORD="xxx"`)
-1. Undeploy all existing forms and process models:
-   1. Get a list of all processes and models:
-      ```bash
-      ./gradlew listP listF -Purl="$OZGH_URL" -Puser="$OZGH_USERNAME" -Ppassword="$OZGH_PASSWORD"
-      ```
-   1. Note which of these process models and forms will be replaced by your later deployment and note their `deploymentId`:
-      ![For processes, the deployment ID is located in the rightmost column. For forms, to the right of the form language.](documentation/where-to-find-deployment-id.png)
-   1. For each form: undeploy that form:
-      ```bash
-      ./gradlew undeployF -Purl="$OZGH_URL" -Puser="$OZGH_USERNAME" -Ppassword="$OZGH_PASSWORD" -PdeploymentId=REPLACE_ME_WITH_ID_FROM_PREVIOUS_STEP
-      ```
-   1. for each process model (there usually is only one): undeploy that model:
-      ```bash
-      ./gradlew undeployP -Purl="$OZGH_URL" -Puser="$OZGH_USERNAME" -Ppassword="$OZGH_PASSWORD" -PdeleteProcessInstances=true -PdeploymentId=REPLACE_ME_WITH_ID_FROM_PREVIOUS_STEP
-      ```
-1. Build and deploy the new version: 
+1. If you use Unit tests, run them all: `./gradlew test` Fix any issues if there are failing tests.
+1. Store the deployment configuration in environment variables for convenience. (e.g. by setting them via `OZGH_URL="xxx"; OZGH_USERNAME="xxx"; OZGH_PASSWORD="xxx"`) (You might want to use the auto-type feature of your password manager.)
+1. Build and deploy your process model and forms (possibly overwriting existing files with the same id): 
    ```bash
-   ./gradlew buildModel deployP deployF -Purl="$OZGH_URL" -Puser="$OZGH_USERNAME" -Ppassword="$OZGH_PASSWORD" -PdeploymentName=REPLACE_ME -PversionName=REPLACE_ME_TOO
+   ./gradlew buildModel deployP deployF -Purl="$OZGH_URL" -Puser="$OZGH_USERNAME" -Ppassword="$OZGH_PASSWORD" -PduplicateProcesskeyAction="UNDEPLOY" -PversionName="v1.0-SNAPSHOT" -PdeploymentName="DeploymentFromLocalRepository" 
    ```
 
-   *(Note: The `deploymentName` parameter is used to identify a specific deployment of a process model. It will be shown on the output of the `listP` task. We suggest using your own name and the process name. The `versionName` parameter is used to specify the version of the processmodel.)*
+   *(Note: The `deploymentName` parameter is used to identify a specific deployment of a process model. The `versionName` parameter is used to specify the version of the processmodel.)*
 
 More details about the gradle plugin and the provided task can be found at: [GitHub -> Prozess-Deployment-Gradle-Plugin für den OZG-Hub](https://github.com/OZG-Hub/ozghub-prozess-gradle-plugin)
 
