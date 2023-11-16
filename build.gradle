@@ -1,31 +1,26 @@
 plugins {
-  id 'java'
   id 'groovy'
-  id "de.seitenbau.serviceportal.prozesspipeline" version "2022.09.01-0"
-  id "de.seitenbau.ozghub.prozessdeployment" version "2022.09.13-0"
+  // Used to deploy process to SBW/Amt24/OzgHub. Most recent version:
+  // https://plugins.gradle.org/plugin/de.seitenbau.serviceportal.prozesspipeline
+  // If you update this, dont forget to also update commons/serviceportal/build.gradle as well
+  id "de.seitenbau.serviceportal.prozesspipeline" version "2023.09.13-0"
 }
+
+// The the public API is maintained by the Schildkröten Team and the most recent version listed on maven central:
+// https://central.sonatype.com/artifact/de.seitenbau.serviceportal/prozess-scripting-api
+String serviceportalPublicApiVersion = "1.165.4"
 
 repositories {
   mavenCentral()
 }
 
-def serviceportalDependenciesVersion = "1.142.9"
 dependencies {
   [
-          "org.codehaus.groovy:groovy-all:3.0.6",
-          "org.activiti:activiti-engine:5.22.0"
+          'org.codehaus.groovy:groovy-all:2.5.22',
 
-          /*
-          You may want to include dependencies to common serviceportal-API-objects (like "FormContent"
-          for accessing user-provided data). These APIs contain proprietary code by SEITENBAU and are
-          not distributed freely (and therefore can not be found in the usual maven repositories).
-          You can request access to these files by contacting ozg-hub@seitenbau.com.
-          If you have access to these files, feel free to uncomment the following code:
-          "de.seitenbau.serviceportal:formular-api:${serviceportalDependenciesVersion}",
-          "de.seitenbau.serviceportal:prozess-api:${serviceportalDependenciesVersion}",
-          "de.seitenbau.serviceportal:api-common:${serviceportalDependenciesVersion}",
-          "de.seitenbau.serviceportal:prozess-service:${serviceportalDependenciesVersion}"
-          */
+          "de.seitenbau.serviceportal:prozess-scripting-api:${serviceportalPublicApiVersion}",
+
+          "org.activiti:activiti-engine:5.22.0",
 
   ].each { dep ->
     implementation(dep) {
@@ -35,72 +30,141 @@ dependencies {
     }
   }
 
+  // Include commons subproject
+  // implementation project("commons.serviceportal") // TODO: Re-enable that when the submodule is set up
+
   // testing
   implementation group: 'net.bytebuddy', name: 'byte-buddy-gradle-plugin', version: '1.10.1'
-  testImplementation "org.spockframework:spock-core:2.0-M3-groovy-3.0"
+  testImplementation "org.spockframework:spock-core:2.0-M1-groovy-2.5"
 }
 
-listProcesses {
-  url = getVariableValue("url")
-  user = getVariableValue("user")
-  password = getVariableValue("password")
+// Set source directories (where to compile and test from)
+sourceSets {
+  main {
+    groovy {
+      srcDirs = ["scripts"]
+    }
+    resources {
+      srcDirs = ["scripts"]
+    }
+  }
+  test {
+    groovy {
+      srcDirs = ["tests"]
+    }
+    resources {
+      srcDirs = ["scripts", "forms"]
+    }
+  }
 }
 
-listForms {
-  url = getVariableValue("url")
-  user = getVariableValue("user")
-  password = getVariableValue("password")
+test {
+  // Enable logging of test results
+  testLogging {
+    events "passed", "skipped", "failed"
+  }
+
+  // Enforce JUnit for Spock runs (see https://blog.solidsoft.pl/2020/01/02/migrating-spock-1.3-tests-to-spock-2.0/ )
+  useJUnitPlatform()
+
+  // Fail the build if no rests were run.
+  afterSuite { desc, result ->
+    if (!desc.parent) {
+      if (result.testCount == 0) {
+        throw new IllegalStateException("No tests were found. Failing the build")
+      }
+    }
+  }
 }
 
-undeployProcess {
-  url = getVariableValue("url")
-  user = getVariableValue("user")
-  password = getVariableValue("password")
-  deploymentId = getVariableValue("deploymentId")
-  deleteProcessInstances = getVariableValue("deleteProcessInstances")
-}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Configure SBW build tasks                                                                             //
+// From: https://github.com/Seitenbau/Vorlage-Prozessmodellierung-Serviceportal/blob/master/build.gradle //
+// These statements should be moved to the gradle plugin at some point, but are not yet (2020-09-29)     //
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-undeployForm {
-  url = getVariableValue("url")
-  user = getVariableValue("user")
-  password = getVariableValue("password")
-  deploymentId = getVariableValue("deploymentId")
-}
-
-deployProcess {
-  url = getVariableValue("url")
-  user = getVariableValue("user")
-  password = getVariableValue("password")
-  versionName = getVariableValue("versionName")
-  files = getVariableValue("files")
-  deploymentName = getVariableValue("deploymentName")
-  duplicateProcesskeyAction = getVariableValue("duplicateProcesskeyAction")
-  engine = getVariableValue("engine")
-}
-
-deployForms {
-  url = getVariableValue("url")
-  user = getVariableValue("user")
-  password = getVariableValue("password")
-  files = getVariableValue("files")
+def getVariableValue(name, defaultValue) {
+  return project.hasProperty(name) ? project.property(name) : defaultValue
 }
 
 mergeScripts {
+  environment = getVariableValue('environment', 'default')
   debug = getVariableValue('debug', false)
 }
 
 buildModel {
+  environment = getVariableValue('environment', 'default')
   debug = getVariableValue('debug', false)
-  mandant = getVariableValue('1', false)
   dependsOn 'mergeScripts'
 }
 
-def getVariableValue(name, defaultValue)
-{
-  return project.hasProperty(name) ? project.property(name) : defaultValue
+uploadProcessModelFiles {
+  environment = getVariableValue('environment', 'default')
+  debug = getVariableValue('debug', false)
 }
 
-def getVariableValue(name)
-{
-  return getVariableValue(name, null)
+uploadFormularFiles {
+  environment = getVariableValue('environment', 'default')
+  debug = getVariableValue('debug', false)
+}
+
+uploadAndDeployFormularFiles {
+  environment = getVariableValue('environment', 'default')
+  debug = getVariableValue('debug', false)
+}
+
+deployProcessModelVersion {
+  environment = getVariableValue('environment', 'default')
+  debug = getVariableValue('debug', false)
+}
+
+uploadParameterDefinition {
+  environment = getVariableValue('environment', 'default')
+  debug = getVariableValue('debug', false)
+}
+
+getAuthorizationToken {
+  environment = getVariableValue('environment', 'default')
+  mandant = getVariableValue('mandant', null)
+  debug = getVariableValue('debug', false)
+}
+
+startLocalHttpServer {
+  environment = getVariableValue('environment', 'default')
+  port = getVariableValue('port', "0")
+}
+
+task mergeBuild {
+  doFirst {
+    clean
+  }
+  dependsOn 'buildModel'
+  dependsOn 'mergeScripts'
+  tasks.findByName('buildModel').mustRunAfter 'mergeScripts'
+}
+
+task upload {
+  doFirst {
+    clean
+  }
+  dependsOn 'mergeBuild'
+  dependsOn 'uploadProcessModelFiles'
+  dependsOn 'uploadFormularFiles'
+  dependsOn 'uploadParameterDefinition'
+  tasks.findByName('uploadProcessModelFiles').mustRunAfter 'buildModel'
+  tasks.findByName('uploadParameterDefinition').mustRunAfter 'uploadProcessModelFiles'
+}
+
+task uploadAndDeploy {
+  doFirst {
+    clean
+  }
+  dependsOn 'mergeBuild'
+  dependsOn 'uploadProcessModelFiles'
+  dependsOn 'uploadAndDeployFormularFiles'
+  dependsOn 'uploadParameterDefinition'
+  dependsOn 'deployProcessModelVersion'
+  tasks.findByName('uploadProcessModelFiles').mustRunAfter 'buildModel'
+  tasks.findByName('uploadParameterDefinition').mustRunAfter 'uploadProcessModelFiles'
+  tasks.findByName('deployProcessModelVersion').mustRunAfter 'uploadParameterDefinition'
 }

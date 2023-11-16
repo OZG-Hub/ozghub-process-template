@@ -1,5 +1,7 @@
 # OZG-Hub Process Template
 
+TODO: Major refactoring of the readme file. Should Mainly include licence and contribution infos and link to another file with the actual user guide in German. 
+
 This repository serves as a template for OZG-Hub processes (also called "Onlinedienste" in this context). It includes all necessary dependencies to create your own process. To do so, follow the steps in the section [Creating your own process](#Creating-your-own-process).
 
 ## Prerequisites
