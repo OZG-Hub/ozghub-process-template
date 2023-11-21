@@ -3,7 +3,7 @@
 This repository serves as a standardized template for OZG-Hub processes (also called "Onlinedienste" in this context).
 
 # Usage
-Please see [the (german) manual](./manual-de.md) for instructions on how to use this template.
+Please see [Wiki](https://github.com/OZG-Hub/ozghub-process-template/wiki) for instructions on how to use this template.
 
 # License
 Copyright 2023 SEITENBAU GmbH
