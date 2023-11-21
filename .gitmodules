@@ -1,0 +1,3 @@
+[submodule "commons/serviceportal"]
+	path = commons/serviceportal
+	url = https://github.com/OZG-Hub/serviceportale-commons.git

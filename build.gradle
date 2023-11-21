@@ -31,7 +31,7 @@ dependencies {
   }
 
   // Include commons subproject
-  // implementation project("commons.serviceportal") // TODO: Re-enable that when the submodule is set up
+  implementation project("commons.serviceportal")
 
   // testing
   implementation group: 'net.bytebuddy', name: 'byte-buddy-gradle-plugin', version: '1.10.1'
