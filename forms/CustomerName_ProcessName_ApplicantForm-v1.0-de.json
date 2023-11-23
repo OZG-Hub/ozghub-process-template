@@ -1,0 +1,13 @@
+{
+  "id": "MandantId:CustomerName_ProcessName_ApplicantForm:v1.0",
+  "title": "",
+  "sections": [],
+  "source": {
+    "service": "prozess",
+    "variableName": "applicantForm"
+  },
+  "target": {
+    "service": "prozess",
+    "variableName": "applicantForm"
+  }
+}

@@ -9,7 +9,7 @@
 // "xmlns" attribute, which would later lead to the very confusing
 // "Unexpected character" exception when trying to deploy the model.</script>
     </scriptTask>
-    <userTask id="exampleForm" name="Beispielformular" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:MANDANTENID:CUSTOMER_PROCESS_FORMNAME:v1.0"></userTask>
+    <userTask id="vorschaltseite" name="TODO: Name Anpassen" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:MandantId:CustomerName_ProcessName_PreliminaryForm:v1.0"></userTask>
     <userTask id="finalPage" name="Der Prozess wurde beendet" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="showOnce">
       <documentation>Ihr Antrag ist eingegangen. Sie können dieses Browserfenster nun schließen.
 
@@ -26,6 +26,40 @@
 // "Unexpected character" exception when trying to deploy the model.</script>
     </scriptTask>
     <sequenceFlow id="flow2" sourceRef="init" targetRef="readProcessParameters"></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="readProcessParameters" targetRef="vorschaltseite"></sequenceFlow>
+    <scriptTask id="validatePreliminaryForm" name="Vorschaltseite validieren" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>// This code will be replaced by the build script. It is important
+// that this (or any other) comment is written here in the bpmn file
+// as the "buildModel" gradle task would otherwise create an empty
+// "xmlns" attribute, which would later lead to the very confusing
+// "Unexpected character" exception when trying to deploy the model.</script>
+    </scriptTask>
+    <sequenceFlow id="flow4" sourceRef="vorschaltseite" targetRef="validatePreliminaryForm"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow5" sourceRef="validatePreliminaryForm" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow6" name="nicht valide" sourceRef="exclusivegateway1" targetRef="vorschaltseite">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isFormValid == false}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow7" name="OK" sourceRef="exclusivegateway1" targetRef="finalPage">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isFormValid == true}]]></conditionExpression>
+    </sequenceFlow>
+    <textAnnotation id="textannotation1">
+      <text>TODO:
+
+- Erwartete Parameter auflisten
+- Korrektheit der Parameter validieren</text>
+    </textAnnotation>
+    <association id="association1" sourceRef="textannotation1" targetRef="readProcessParameters"></association>
+    <textAnnotation id="textannotation2">
+      <text>Vorschaltseite</text>
+    </textAnnotation>
+    <association id="association2" sourceRef="textannotation2" targetRef="vorschaltseite"></association>
+    <textAnnotation id="textannotation3">
+      <text>TODO: 
+
+- </text>
+    </textAnnotation>
+    <association id="association3" sourceRef="textannotation3" targetRef="validatePreliminaryForm"></association>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_mMANDANTENID.customerNameProcessNameAllCamelCase">
     <bpmndi:BPMNPlane bpmnElement="mMANDANTENID.customerNameProcessNameAllCamelCase" id="BPMNPlane_mMANDANTENID.customerNameProcessNameAllCamelCase">
@@ -35,17 +69,32 @@
       <bpmndi:BPMNShape bpmnElement="init" id="BPMNShape_init">
         <omgdc:Bounds height="60.0" width="100.0" x="140.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="exampleForm" id="BPMNShape_exampleForm">
-        <omgdc:Bounds height="60.0" width="100.0" x="370.0" y="50.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="vorschaltseite" id="BPMNShape_vorschaltseite">
+        <omgdc:Bounds height="60.0" width="100.0" x="470.0" y="181.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="finalPage" id="BPMNShape_finalPage">
-        <omgdc:Bounds height="60.0" width="100.0" x="640.0" y="70.0"></omgdc:Bounds>
+        <omgdc:Bounds height="60.0" width="100.0" x="790.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="processEnd" id="BPMNShape_processEnd">
-        <omgdc:Bounds height="35.0" width="35.0" x="480.0" y="192.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="1080.0" y="194.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="readProcessParameters" id="BPMNShape_readProcessParameters">
         <omgdc:Bounds height="60.0" width="100.0" x="271.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="validatePreliminaryForm" id="BPMNShape_validatePreliminaryForm">
+        <omgdc:Bounds height="60.0" width="100.0" x="590.0" y="181.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="710.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="71.0" width="199.0" x="221.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
+        <omgdc:Bounds height="50.0" width="100.0" x="470.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
+        <omgdc:Bounds height="50.0" width="162.0" x="559.0" y="281.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="105.0" y="209.0"></omgdi:waypoint>
@@ -54,6 +103,46 @@
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
         <omgdi:waypoint x="240.0" y="210.0"></omgdi:waypoint>
         <omgdi:waypoint x="271.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="371.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="470.0" y="211.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="570.0" y="211.0"></omgdi:waypoint>
+        <omgdi:waypoint x="590.0" y="211.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="690.0" y="211.0"></omgdi:waypoint>
+        <omgdi:waypoint x="710.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="730.0" y="230.0"></omgdi:waypoint>
+        <omgdi:waypoint x="730.0" y="271.0"></omgdi:waypoint>
+        <omgdi:waypoint x="520.0" y="271.0"></omgdi:waypoint>
+        <omgdi:waypoint x="520.0" y="241.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="100.0" x="660.0" y="253.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="750.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="790.0" y="210.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="100.0" x="758.0" y="194.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
+        <omgdi:waypoint x="320.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="321.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
+        <omgdi:waypoint x="520.0" y="150.0"></omgdi:waypoint>
+        <omgdi:waypoint x="520.0" y="181.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
+        <omgdi:waypoint x="640.0" y="281.0"></omgdi:waypoint>
+        <omgdi:waypoint x="640.0" y="241.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
