@@ -18,7 +18,7 @@ FormFieldContentV1 fieldToCheck = preliminaryForm.fields.get("groupId:0:fieldId"
 if (!yourComplexCheck(fieldToCheck.value as String)) {
   final String errorMsg = "todo" // TODO: Please add a helpful error message (in the language of your form) which tells
   //                                  your users what they need to do to fix the problem.
-  fieldToCheck.validationMessages.add(new ValidationMessageV1(MessageTypeV1.INTERNAL, errorMsg))
+  fieldToCheck.addValidationMessage(errorMsg)
   api.setVariable("isFormValid", false)
 }
 
