@@ -9,10 +9,10 @@ import de.seitenbau.serviceportal.scripting.api.v1.form.content.FormFieldContent
 ScriptingApiV1 api = apiV1 // Variable is automatically set by Serviceportal process engine
 
 api.setVariable("isFormValid", true) // Initially, assume all input is correct
-FormContentV1 preliminaryForm = api.getVariable("preliminaryForm") as FormContentV1
+FormContentV1 applicantForm = api.getVariable("applicantForm") as FormContentV1
 
 // TODO: Add your own validation here
-FormFieldContentV1 fieldToCheck = preliminaryForm.fields.get("groupId:0:fieldId") // TODO: Replace groupId and fieldId
+FormFieldContentV1 fieldToCheck = applicantForm.fields.get("groupId:0:fieldId") // TODO: Replace groupId and fieldId
 //                                                                                     with the values you set in your
 //                                                                                     form
 if (!yourComplexCheck(fieldToCheck.value as String)) {
