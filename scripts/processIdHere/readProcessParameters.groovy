@@ -3,6 +3,9 @@ package processIdHere
 import de.seitenbau.serviceportal.scripting.api.v1.ScriptingApiV1
 
 final List<String> expectedParameters = [
+        "fitConnectClientId",
+        "fitConnectClientSecret",
+        "fitConnectDestinationId"
         // TODO: Add parameters this process uses
 ]
 

@@ -106,6 +106,49 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
+    <scriptTask id="prepareFitConntectTransfer" name="Daten für Transfer vorbereiten" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>// This code will be replaced by the build script. It is important
+// that this (or any other) comment is written here in the bpmn file
+// as the "buildModel" gradle task would otherwise create an empty
+// "xmlns" attribute, which would later lead to the very confusing
+// "Unexpected character" exception when trying to deploy the model.</script>
+    </scriptTask>
+    <sequenceFlow id="flow21" sourceRef="createPdf" targetRef="prepareFitConntectTransfer"></sequenceFlow>
+    <serviceTask id="transferToFitConnect" name="Daten an FIT-Connect senden" activiti:class="de.seitenbau.serviceportal.prozess.servicetask.FitConnectSubmissionService">
+      <extensionElements>
+        <activiti:field name="clientId">
+          <activiti:expression><![CDATA[${fitConnectClientId}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="clientSecret">
+          <activiti:expression><![CDATA[${fitConnectClientSecret}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="destinationId">
+          <activiti:expression><![CDATA[${fitConnectDestinationId}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="serviceName">
+          <activiti:string><![CDATA[TODO: Muss vom Fachverfahrenshersteller erfragt werden]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="serviceIdentifier">
+          <activiti:string><![CDATA[TODO: Muss vom Fachverfahrenshersteller erfragt werden, z. B. urn:de:fim:leika:leistung:99001003004000]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="mimeType">
+          <activiti:string><![CDATA[TODO: Muss vom Fachverfahrenshersteller erfragt werden, z. B. application/json]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="schemaURI">
+          <activiti:string><![CDATA[TODO: Muss vom Fachverfahrenshersteller erfragt werden, z. B. https://schema.fitko.de/fim/s00000000009_1.0.0.schema.json]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="fachdaten">
+          <activiti:expression><![CDATA[${fitConnectPayload}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="attachments">
+          <activiti:expression><![CDATA[${fitConnectAttachments}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="target">
+          <activiti:string><![CDATA[fitConnectResult]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow22" sourceRef="prepareFitConntectTransfer" targetRef="transferToFitConnect"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>TODO:
 
@@ -155,6 +198,18 @@
     </textAnnotation>
     <association id="association9" sourceRef="textannotation8" targetRef="setupPayment"></association>
     <association id="association10" sourceRef="textannotation8" targetRef="payment"></association>
+    <textAnnotation id="textannotation9">
+      <text>TODO:
+
+- Transformation der Daten in einen definierten, leistungsspezifischen Standard (i.d.R. FIM oder XÖV)</text>
+    </textAnnotation>
+    <association id="association11" sourceRef="textannotation9" targetRef="prepareFitConntectTransfer"></association>
+    <textAnnotation id="textannotation10">
+      <text>TODO:
+
+- Properties anpassen</text>
+    </textAnnotation>
+    <association id="association12" sourceRef="textannotation10" targetRef="transferToFitConnect"></association>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_mMANDANTENID.customerNameProcessNameAllCamelCase">
     <bpmndi:BPMNPlane bpmnElement="mMANDANTENID.customerNameProcessNameAllCamelCase" id="BPMNPlane_mMANDANTENID.customerNameProcessNameAllCamelCase">
@@ -204,13 +259,19 @@
         <omgdc:Bounds height="40.0" width="40.0" x="1420.0" y="191.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="payment" id="BPMNShape_payment">
-        <omgdc:Bounds height="60.0" width="100.0" x="1625.0" y="180.0"></omgdc:Bounds>
+        <omgdc:Bounds height="60.0" width="100.0" x="1630.0" y="183.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="setupPayment" id="BPMNShape_setupPayment">
         <omgdc:Bounds height="60.0" width="100.0" x="1510.0" y="182.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="createPdf" id="BPMNShape_createPdf">
-        <omgdc:Bounds height="55.0" width="105.0" x="1780.0" y="182.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="1781.0" y="185.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="prepareFitConntectTransfer" id="BPMNShape_prepareFitConntectTransfer">
+        <omgdc:Bounds height="60.0" width="100.0" x="1950.0" y="183.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="transferToFitConnect" id="BPMNShape_transferToFitConnect">
+        <omgdc:Bounds height="55.0" width="105.0" x="2070.0" y="184.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="71.0" width="199.0" x="221.0" y="320.0"></omgdc:Bounds>
@@ -235,6 +296,12 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation8" id="BPMNShape_textannotation8">
         <omgdc:Bounds height="50.0" width="215.0" x="1510.0" y="331.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation9" id="BPMNShape_textannotation9">
+        <omgdc:Bounds height="102.0" width="142.0" x="1929.0" y="309.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation10" id="BPMNShape_textannotation10">
+        <omgdc:Bounds height="102.0" width="100.0" x="2073.0" y="309.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="105.0" y="209.0"></omgdi:waypoint>
@@ -335,11 +402,19 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
         <omgdi:waypoint x="1610.0" y="212.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1625.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1630.0" y="213.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
-        <omgdi:waypoint x="1725.0" y="210.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1780.0" y="209.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1730.0" y="213.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1781.0" y="212.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="1886.0" y="212.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1950.0" y="213.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="2050.0" y="213.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2070.0" y="211.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
         <omgdi:waypoint x="320.0" y="320.0"></omgdi:waypoint>
@@ -375,7 +450,15 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association10" id="BPMNEdge_association10">
         <omgdi:waypoint x="1617.0" y="331.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1675.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1680.0" y="243.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association11" id="BPMNEdge_association11">
+        <omgdi:waypoint x="2000.0" y="309.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2000.0" y="243.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association12" id="BPMNEdge_association12">
+        <omgdi:waypoint x="2123.0" y="309.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2122.0" y="239.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
