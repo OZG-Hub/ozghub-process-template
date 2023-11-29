@@ -95,7 +95,17 @@
 // "Unexpected character" exception when trying to deploy the model.</script>
     </scriptTask>
     <sequenceFlow id="flow19" sourceRef="setupPayment" targetRef="payment"></sequenceFlow>
-    <sequenceFlow id="flow20" sourceRef="payment" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow20" sourceRef="payment" targetRef="createPdf"></sequenceFlow>
+    <serviceTask id="createPdf" name="PDF generieren" activiti:class="de.seitenbau.serviceportal.prozess.servicetask.PdfErstellenService">
+      <extensionElements>
+        <activiti:field name="source">
+          <activiti:expression><![CDATA[${applicantForm}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="target">
+          <activiti:expression><![CDATA[applicantFormAsPdf]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
     <textAnnotation id="textannotation1">
       <text>TODO:
 
@@ -188,7 +198,7 @@
         <omgdc:Bounds height="60.0" width="100.0" x="1310.0" y="182.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="1900.0" y="192.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="2140.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway4" id="BPMNShape_exclusivegateway4">
         <omgdc:Bounds height="40.0" width="40.0" x="1420.0" y="191.0"></omgdc:Bounds>
@@ -198,6 +208,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="setupPayment" id="BPMNShape_setupPayment">
         <omgdc:Bounds height="60.0" width="100.0" x="1510.0" y="182.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="createPdf" id="BPMNShape_createPdf">
+        <omgdc:Bounds height="55.0" width="105.0" x="1780.0" y="182.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="71.0" width="199.0" x="221.0" y="320.0"></omgdc:Bounds>
@@ -326,7 +339,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
         <omgdi:waypoint x="1725.0" y="210.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1900.0" y="209.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1780.0" y="209.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
         <omgdi:waypoint x="320.0" y="320.0"></omgdi:waypoint>
