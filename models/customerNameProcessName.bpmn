@@ -149,6 +149,32 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow22" sourceRef="prepareFitConntectTransfer" targetRef="transferToFitConnect"></sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="transferToFitConnect">
+      <errorEventDefinition errorRef="fitConnectSubmissionServiceError"></errorEventDefinition>
+    </boundaryEvent>
+    <scriptTask id="logFitConnectError" name="Fehler loggen" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>// This code will be replaced by the build script. It is important
+// that this (or any other) comment is written here in the bpmn file
+// as the "buildModel" gradle task would otherwise create an empty
+// "xmlns" attribute, which would later lead to the very confusing
+// "Unexpected character" exception when trying to deploy the model.</script>
+    </scriptTask>
+    <sequenceFlow id="flow23" sourceRef="boundaryerror1" targetRef="logFitConnectError"></sequenceFlow>
+    <userTask id="showOnceAfterFitConnectError" name="Fehler bei Datenübertragung" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="showOnce">
+      <documentation>${errorMessageForUser}</documentation>
+    </userTask>
+    <sequenceFlow id="flow24" sourceRef="logFitConnectError" targetRef="showOnceAfterFitConnectError"></sequenceFlow>
+    <scriptTask id="parseFitConnectResult" name="FIT-Connect Resultat verarbeiten" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>// This code will be replaced by the build script. It is important
+// that this (or any other) comment is written here in the bpmn file
+// as the "buildModel" gradle task would otherwise create an empty
+// "xmlns" attribute, which would later lead to the very confusing
+// "Unexpected character" exception when trying to deploy the model.</script>
+    </scriptTask>
+    <sequenceFlow id="flow25" sourceRef="transferToFitConnect" targetRef="parseFitConnectResult"></sequenceFlow>
+    <sequenceFlow id="flow26" sourceRef="showOnceAfterFitConnectError" targetRef="endevent1"></sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow27" sourceRef="parseFitConnectResult" targetRef="endevent2"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>TODO:
 
@@ -226,7 +252,7 @@
         <omgdc:Bounds height="60.0" width="100.0" x="790.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="processEnd" id="BPMNShape_processEnd">
-        <omgdc:Bounds height="35.0" width="35.0" x="2340.0" y="58.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="2940.0" y="30.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="readProcessParameters" id="BPMNShape_readProcessParameters">
         <omgdc:Bounds height="60.0" width="100.0" x="271.0" y="180.0"></omgdc:Bounds>
@@ -253,7 +279,7 @@
         <omgdc:Bounds height="60.0" width="100.0" x="1310.0" y="182.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="2140.0" y="80.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="2310.0" y="102.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway4" id="BPMNShape_exclusivegateway4">
         <omgdc:Bounds height="40.0" width="40.0" x="1420.0" y="191.0"></omgdc:Bounds>
@@ -272,6 +298,21 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="transferToFitConnect" id="BPMNShape_transferToFitConnect">
         <omgdc:Bounds height="55.0" width="105.0" x="2070.0" y="184.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="2110.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="logFitConnectError" id="BPMNShape_logFitConnectError">
+        <omgdc:Bounds height="60.0" width="100.0" x="2073.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="showOnceAfterFitConnectError" id="BPMNShape_showOnceAfterFitConnectError">
+        <omgdc:Bounds height="60.0" width="100.0" x="2190.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parseFitConnectResult" id="BPMNShape_parseFitConnectResult">
+        <omgdc:Bounds height="60.0" width="100.0" x="2190.0" y="182.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="2510.0" y="281.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="71.0" width="199.0" x="221.0" y="320.0"></omgdc:Bounds>
@@ -415,6 +456,26 @@
       <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
         <omgdi:waypoint x="2050.0" y="213.0"></omgdi:waypoint>
         <omgdi:waypoint x="2070.0" y="211.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="2125.0" y="170.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2123.0" y="150.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="2173.0" y="120.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2190.0" y="120.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="2175.0" y="211.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2190.0" y="212.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="2290.0" y="120.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2310.0" y="119.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
+        <omgdi:waypoint x="2240.0" y="242.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2527.0" y="281.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
         <omgdi:waypoint x="320.0" y="320.0"></omgdi:waypoint>
