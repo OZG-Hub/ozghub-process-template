@@ -11,7 +11,6 @@
     </scriptTask>
     <userTask id="vorschaltseite" name="TODO: Name Anpassen" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:MandantId:CustomerName_ProcessName_PreliminaryForm:v1.0"></userTask>
     <userTask id="applicantForm" name="TODO: Name Anpassen" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:MandantId:CustomerName_ProcessName_PreliminaryForm:v1.0"></userTask>
-    <endEvent id="processEnd" name="End"></endEvent>
     <sequenceFlow id="flow1" sourceRef="processStart" targetRef="init"></sequenceFlow>
     <scriptTask id="readProcessParameters" name="Prozessparameter aus Jesaja auslesen" scriptFormat="groovy" activiti:autoStoreVariables="false">
       <script>// This code will be replaced by the build script. It is important
@@ -199,7 +198,15 @@ Vorgangs-ID der Einreichung: ${fitConnectCaseId}]]></activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow28" sourceRef="sendMessageToApplicant" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow28" sourceRef="sendMessageToApplicant" targetRef="finalPage"></sequenceFlow>
+    <userTask id="finalPage" name="Antrag auf TODO_PROZESSNAME_HIER eingegangen" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="showOnce">
+      <documentation>Ihr Antrag wurde erfolgreich an die zuständige Stelle übertragen.
+
+TODO: NEXT STEPS HIER ERGÄNZEN: z. B. "Sie erhalten in 5-10 Werktagen den Bescheid postalisch zugeschickt."
+
+Sie können diese Seite nun schließen.</documentation>
+    </userTask>
+    <sequenceFlow id="flow29" sourceRef="finalPage" targetRef="endevent2"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>TODO:
 
@@ -261,6 +268,23 @@ Vorgangs-ID der Einreichung: ${fitConnectCaseId}]]></activiti:expression>
 - Properties anpassen</text>
     </textAnnotation>
     <association id="association12" sourceRef="textannotation10" targetRef="transferToFitConnect"></association>
+    <textAnnotation id="textannotation11">
+      <text>TODO:
+
+- 2 Platzhalter in den Attributen austauschen</text>
+    </textAnnotation>
+    <association id="association13" sourceRef="textannotation11" targetRef="sendMessageToApplicant"></association>
+    <textAnnotation id="textannotation12">
+      <text>Abschlussseite</text>
+    </textAnnotation>
+    <association id="association14" sourceRef="textannotation12" targetRef="usertask1"></association>
+    <textAnnotation id="textannotation13">
+      <text>TODO: 
+
+- Prozessname im Titel ergänzen
+- Nächsten Schritte ergänzen</text>
+    </textAnnotation>
+    <association id="association15" sourceRef="textannotation13" targetRef="finalPage"></association>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_mMANDANTENID.customerNameProcessNameAllCamelCase">
     <bpmndi:BPMNPlane bpmnElement="mMANDANTENID.customerNameProcessNameAllCamelCase" id="BPMNPlane_mMANDANTENID.customerNameProcessNameAllCamelCase">
@@ -275,9 +299,6 @@ Vorgangs-ID der Einreichung: ${fitConnectCaseId}]]></activiti:expression>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="applicantForm" id="BPMNShape_applicantForm">
         <omgdc:Bounds height="60.0" width="100.0" x="790.0" y="180.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="processEnd" id="BPMNShape_processEnd">
-        <omgdc:Bounds height="35.0" width="35.0" x="2940.0" y="30.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="readProcessParameters" id="BPMNShape_readProcessParameters">
         <omgdc:Bounds height="60.0" width="100.0" x="271.0" y="180.0"></omgdc:Bounds>
@@ -337,10 +358,13 @@ Vorgangs-ID der Einreichung: ${fitConnectCaseId}]]></activiti:expression>
         <omgdc:Bounds height="60.0" width="100.0" x="2190.0" y="182.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35.0" width="35.0" x="2510.0" y="281.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="2690.0" y="195.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sendMessageToApplicant" id="BPMNShape_sendMessageToApplicant">
         <omgdc:Bounds height="55.0" width="137.0" x="2344.0" y="185.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="finalPage" id="BPMNShape_finalPage">
+        <omgdc:Bounds height="60.0" width="100.0" x="2530.0" y="183.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="71.0" width="199.0" x="221.0" y="320.0"></omgdc:Bounds>
@@ -371,6 +395,15 @@ Vorgangs-ID der Einreichung: ${fitConnectCaseId}]]></activiti:expression>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation10" id="BPMNShape_textannotation10">
         <omgdc:Bounds height="102.0" width="100.0" x="2073.0" y="309.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation11" id="BPMNShape_textannotation11">
+        <omgdc:Bounds height="102.0" width="100.0" x="2363.0" y="309.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation12" id="BPMNShape_textannotation12">
+        <omgdc:Bounds height="50.0" width="100.0" x="2530.0" y="51.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation13" id="BPMNShape_textannotation13">
+        <omgdc:Bounds height="102.0" width="100.0" x="2530.0" y="309.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="105.0" y="209.0"></omgdi:waypoint>
@@ -506,8 +539,12 @@ Vorgangs-ID der Einreichung: ${fitConnectCaseId}]]></activiti:expression>
         <omgdi:waypoint x="2344.0" y="212.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
-        <omgdi:waypoint x="2412.0" y="240.0"></omgdi:waypoint>
-        <omgdi:waypoint x="2527.0" y="281.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2481.0" y="212.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2530.0" y="213.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
+        <omgdi:waypoint x="2630.0" y="213.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2690.0" y="212.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
         <omgdi:waypoint x="320.0" y="320.0"></omgdi:waypoint>
@@ -552,6 +589,14 @@ Vorgangs-ID der Einreichung: ${fitConnectCaseId}]]></activiti:expression>
       <bpmndi:BPMNEdge bpmnElement="association12" id="BPMNEdge_association12">
         <omgdi:waypoint x="2123.0" y="309.0"></omgdi:waypoint>
         <omgdi:waypoint x="2122.0" y="239.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association13" id="BPMNEdge_association13">
+        <omgdi:waypoint x="2413.0" y="309.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2412.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association15" id="BPMNEdge_association15">
+        <omgdi:waypoint x="2580.0" y="309.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2580.0" y="243.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
