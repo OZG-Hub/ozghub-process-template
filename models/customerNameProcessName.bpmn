@@ -174,7 +174,32 @@
     <sequenceFlow id="flow25" sourceRef="transferToFitConnect" targetRef="parseFitConnectResult"></sequenceFlow>
     <sequenceFlow id="flow26" sourceRef="showOnceAfterFitConnectError" targetRef="endevent1"></sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
-    <sequenceFlow id="flow27" sourceRef="parseFitConnectResult" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow27" sourceRef="parseFitConnectResult" targetRef="sendMessageToApplicant"></sequenceFlow>
+    <serviceTask id="sendMessageToApplicant" name="Nachricht an Nutzerkonto Bund schicken" activiti:class="de.seitenbau.serviceportal.prozess.servicetask.NachrichtVersendenService">
+      <extensionElements>
+        <activiti:field name="empfaenger">
+          <activiti:expression><![CDATA[${startParameter.startedByUser.postfachHandle}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="betreff">
+          <activiti:string><![CDATA[TODO_HIER_PROZESSNAME: Antrag eingegangen]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[Guten Tag,
+
+Ihr Antrag auf ein TODO_HIER_PROZESSNAME wurde erfolgreich an die zuständige Stelle übertragen. 
+
+Im Anhang finden Sie eine Kopie Ihrer gemachten Angaben als PDF-Datei.
+
+Bei der Übertragung wurden folgende IDs gesetzt:
+Einreichungs-ID: ${fitConnectSubmissionId}
+Vorgangs-ID der Einreichung: ${fitConnectCaseId}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="anhaenge">
+          <activiti:expression><![CDATA[${applicantFormAsPdf}]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow28" sourceRef="sendMessageToApplicant" targetRef="endevent2"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>TODO:
 
@@ -313,6 +338,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="2510.0" y="281.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sendMessageToApplicant" id="BPMNShape_sendMessageToApplicant">
+        <omgdc:Bounds height="55.0" width="137.0" x="2344.0" y="185.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="71.0" width="199.0" x="221.0" y="320.0"></omgdc:Bounds>
@@ -474,7 +502,11 @@
         <omgdi:waypoint x="2310.0" y="119.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
-        <omgdi:waypoint x="2240.0" y="242.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2290.0" y="212.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2344.0" y="212.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
+        <omgdi:waypoint x="2412.0" y="240.0"></omgdi:waypoint>
         <omgdi:waypoint x="2527.0" y="281.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
