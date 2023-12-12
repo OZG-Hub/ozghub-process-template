@@ -1,9 +1,20 @@
+import de.seitenbau.ozghub.prozessdeployment.model.request.DuplicateProcessKeyAction
+
 plugins {
   id 'groovy'
-  // Used to deploy process to SBW/Amt24/OzgHub. Most recent version:
+
+  // Used to build the process modell.
+  // This plugin CAN NOT deploy to OZG-Hub (only SBW and Amt24).
+  // Most recent version:
   // https://plugins.gradle.org/plugin/de.seitenbau.serviceportal.prozesspipeline
   // If you update this, dont forget to also update commons/serviceportal/build.gradle as well
   id "de.seitenbau.serviceportal.prozesspipeline" version "2023.09.13-0"
+
+  // Used to DEPLOY to OZG-Hub.
+  // This plugin CAN NOT build the models by itself.
+  // Most recent version:
+  // https://plugins.gradle.org/plugin/de.seitenbau.ozghub.prozessdeployment
+  id "de.seitenbau.ozghub.prozessdeployment" version "2023.09.13-0"
 }
 
 // The the public API is maintained by the Schildkröten Team and the most recent version listed on maven central:
@@ -79,92 +90,85 @@ test {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Configure SBW build tasks                                                                             //
-// From: https://github.com/Seitenbau/Vorlage-Prozessmodellierung-Serviceportal/blob/master/build.gradle //
+// Adapted from:                                                                                         //
+// https://bitbucket.dev.seitenbau.net/projects/IMBW-SERVICEPORTAL/repos/ozg-hub-deployment-beispielprojekt/browse/BenutzerinfoAuslesen/build.gradle //
 // These statements should be moved to the gradle plugin at some point, but are not yet (2020-09-29)     //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-def getVariableValue(name, defaultValue) {
-  return project.hasProperty(name) ? project.property(name) : defaultValue
+listProcesses {
+  url = getVariableValue("url")
+  user = getVariableValue("user")
+  password = getVariableValue("password")
+}
+
+listForms {
+  url = getVariableValue("url")
+  user = getVariableValue("user")
+  password = getVariableValue("password")
+}
+
+undeployProcess {
+  url = getVariableValue("url")
+  user = getVariableValue("user")
+  password = getVariableValue("password")
+  deploymentId = getVariableValue("deploymentId")
+  deleteProcessInstances = getVariableValue("deleteProcessInstances")
+}
+
+undeployForm {
+  url = getVariableValue("url")
+  user = getVariableValue("user")
+  password = getVariableValue("password")
+  deploymentId = getVariableValue("deploymentId")
+}
+
+deployProcess {
+  url = getVariableValue("url")
+  user = getVariableValue("user")
+  password = getVariableValue("password")
+  files = getVariableValue("files")
+  deploymentName = getVariableValue("deploymentName")
+  versionName = getVariableValue("versionName")
+  duplicateProcesskeyAction = getVariableValue("duplicateProcesskeyAction") as DuplicateProcessKeyAction
+  engine = getVariableValue("engine")
+  metadataFiles = getVariableValue("metadataFiles")
+}
+
+deployForms {
+  url = getVariableValue("url")
+  user = getVariableValue("user")
+  password = getVariableValue("password")
+  files = getVariableValue("files")
+}
+
+encryptParameterValue {
+  url = getVariableValue("url")
+  user = getVariableValue("user")
+  password = getVariableValue("password")
+  processKey = getVariableValue("processKey")
+  parameterValue = getVariableValue("parameterValue")
+  inputFile = getVariableValue("inputFile")
+  charset = getVariableValue("charset")
+  base64 = getVariableValue("base64")
+  outputFile = getVariableValue("outputFile")
 }
 
 mergeScripts {
-  environment = getVariableValue('environment', 'default')
   debug = getVariableValue('debug', false)
 }
 
 buildModel {
-  environment = getVariableValue('environment', 'default')
   debug = getVariableValue('debug', false)
+  mandant = getVariableValue('1', false)
   dependsOn 'mergeScripts'
 }
 
-uploadProcessModelFiles {
-  environment = getVariableValue('environment', 'default')
-  debug = getVariableValue('debug', false)
+def getVariableValue(String name, defaultValue)
+{
+  return project.hasProperty(name) ? project.property(name) : defaultValue
 }
 
-uploadFormularFiles {
-  environment = getVariableValue('environment', 'default')
-  debug = getVariableValue('debug', false)
-}
-
-uploadAndDeployFormularFiles {
-  environment = getVariableValue('environment', 'default')
-  debug = getVariableValue('debug', false)
-}
-
-deployProcessModelVersion {
-  environment = getVariableValue('environment', 'default')
-  debug = getVariableValue('debug', false)
-}
-
-uploadParameterDefinition {
-  environment = getVariableValue('environment', 'default')
-  debug = getVariableValue('debug', false)
-}
-
-getAuthorizationToken {
-  environment = getVariableValue('environment', 'default')
-  mandant = getVariableValue('mandant', null)
-  debug = getVariableValue('debug', false)
-}
-
-startLocalHttpServer {
-  environment = getVariableValue('environment', 'default')
-  port = getVariableValue('port', "0")
-}
-
-task mergeBuild {
-  doFirst {
-    clean
-  }
-  dependsOn 'buildModel'
-  dependsOn 'mergeScripts'
-  tasks.findByName('buildModel').mustRunAfter 'mergeScripts'
-}
-
-task upload {
-  doFirst {
-    clean
-  }
-  dependsOn 'mergeBuild'
-  dependsOn 'uploadProcessModelFiles'
-  dependsOn 'uploadFormularFiles'
-  dependsOn 'uploadParameterDefinition'
-  tasks.findByName('uploadProcessModelFiles').mustRunAfter 'buildModel'
-  tasks.findByName('uploadParameterDefinition').mustRunAfter 'uploadProcessModelFiles'
-}
-
-task uploadAndDeploy {
-  doFirst {
-    clean
-  }
-  dependsOn 'mergeBuild'
-  dependsOn 'uploadProcessModelFiles'
-  dependsOn 'uploadAndDeployFormularFiles'
-  dependsOn 'uploadParameterDefinition'
-  dependsOn 'deployProcessModelVersion'
-  tasks.findByName('uploadProcessModelFiles').mustRunAfter 'buildModel'
-  tasks.findByName('uploadParameterDefinition').mustRunAfter 'uploadProcessModelFiles'
-  tasks.findByName('deployProcessModelVersion').mustRunAfter 'uploadParameterDefinition'
+def getVariableValue(String name)
+{
+  return getVariableValue(name, null)
 }
