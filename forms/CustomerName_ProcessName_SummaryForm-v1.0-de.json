@@ -46,11 +46,11 @@
   ],
   "source": {
     "service": "prozess",
-    "variableName": "applicantForm"
+    "variableName": "summaryForm"
   },
   "target": {
     "service": "prozess",
-    "variableName": "applicantForm"
+    "variableName": "summaryForm"
   },
   "customButtons": {
     "buttons": [
