@@ -10,7 +10,8 @@ FormContentV1 applicantForm = api.getVariable("applicantForm") as FormContentV1
 // Generate summary via the FormDumper class
 String summaryAsHtml = ""
 summaryAsHtml += FormDumper.getCssClasses()
-summaryAsHtml += new FormDumper(applicantForm).dumpFormAsHtmlTable()
+summaryAsHtml += new FormDumper(applicantForm, api).dumpFormAsHtmlTable()
 
 // Store summary as process instance variable
 api.setVariable("summaryAsHtml", summaryAsHtml)
+
