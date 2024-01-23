@@ -1,0 +1,13 @@
+{
+  "id": "MandantId:CustomerName_ProcessName_PreliminaryForm-v1.0-de:v1.0",
+  "title": "",
+  "sections": [],
+  "source": {
+    "service": "prozess",
+    "variableName": "preliminaryForm"
+  },
+  "target": {
+    "service": "prozess",
+    "variableName": "preliminaryForm"
+  }
+}

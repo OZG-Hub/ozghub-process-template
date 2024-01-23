@@ -1,0 +1,34 @@
+{
+  "id": "MandantId:CustomerName_ProcessName_ApplicantForm:v1.0",
+  "title": "",
+  "sections": [],
+  "source": {
+    "service": "prozess",
+    "variableName": "applicantForm"
+  },
+  "target": {
+    "service": "prozess",
+    "variableName": "applicantForm"
+  },
+  "customButtons": {
+    "buttons": [
+      {
+        "value": "back",
+        "label": "Zurück",
+        "primary": false,
+        "skipValidation": true,
+        "helptext": "Zurück zur vorherigen Seite"
+      },
+      {
+        "value": "continue",
+        "label": "Weiter zur Zusammenfassung",
+        "primary": true,
+        "helptext": "Weiter zur Zusammenfassung (Sie können Ihre gemachten Angaben nochmals überprüfen, bevor sie abgeschickt werden)."
+      }
+    ],
+    "target": {
+      "service": "prozess",
+      "variableName": "clickedButton"
+    }
+  }
+}

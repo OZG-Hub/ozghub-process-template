@@ -2,39 +2,601 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="ELEKTRONISCHER_ANTRAG">
   <process id="mMANDANTENID.customerNameProcessNameAllCamelCase" name="Replace_me_with_a_user_facing_process_name" isExecutable="true">
     <startEvent id="processStart" name="Start"></startEvent>
-    <scriptTask id="exampleScript" name="Beispielscripttask" scriptFormat="groovy" activiti:autoStoreVariables="false">
+    <scriptTask id="init" name="Prozess initiieren" scriptFormat="groovy" activiti:autoStoreVariables="false">
       <script>// This code will be replaced by the build script. It is important
 // that this (or any other) comment is written here in the bpmn file
 // as the "buildModel" gradle task would otherwise create an empty
 // "xmlns" attribute, which would later lead to the very confusing
 // "Unexpected character" exception when trying to deploy the model.</script>
     </scriptTask>
-    <userTask id="exampleForm" name="Beispielformular" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:MANDANTENID:CUSTOMER_PROCESS_FORMNAME:v1.0"></userTask>
-    <userTask id="finalPage" name="Der Prozess wurde beendet" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="showOnce">
-      <documentation>Ihr Antrag ist eingegangen. Sie können dieses Browserfenster nun schließen.
-
-{{STARTSEITE}}
-{{AUFGABENLISTE}}</documentation>
+    <userTask id="vorschaltseite" name="TODO: Name Anpassen" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:MandantId:CustomerName_ProcessName_PreliminaryForm:v1.0"></userTask>
+    <userTask id="applicantForm" name="TODO: Name Anpassen" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:MandantId:CustomerName_ProcessName_ApplicantForm:v1.0"></userTask>
+    <sequenceFlow id="flow1" sourceRef="processStart" targetRef="init"></sequenceFlow>
+    <scriptTask id="readProcessParameters" name="Prozessparameter aus Jesaja auslesen" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>// This code will be replaced by the build script. It is important
+// that this (or any other) comment is written here in the bpmn file
+// as the "buildModel" gradle task would otherwise create an empty
+// "xmlns" attribute, which would later lead to the very confusing
+// "Unexpected character" exception when trying to deploy the model.</script>
+    </scriptTask>
+    <sequenceFlow id="flow2" sourceRef="init" targetRef="readProcessParameters"></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="readProcessParameters" targetRef="vorschaltseite"></sequenceFlow>
+    <scriptTask id="validatePreliminaryForm" name="Vorschaltseite validieren" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>// This code will be replaced by the build script. It is important
+// that this (or any other) comment is written here in the bpmn file
+// as the "buildModel" gradle task would otherwise create an empty
+// "xmlns" attribute, which would later lead to the very confusing
+// "Unexpected character" exception when trying to deploy the model.</script>
+    </scriptTask>
+    <sequenceFlow id="flow4" sourceRef="vorschaltseite" targetRef="validatePreliminaryForm"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow5" sourceRef="validatePreliminaryForm" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow6" name="nicht valide" sourceRef="exclusivegateway1" targetRef="vorschaltseite">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isFormValid == false}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow7" name="OK" sourceRef="exclusivegateway1" targetRef="applicantForm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isFormValid == true}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow8" sourceRef="applicantForm" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow9" name="&quot;Zurück&quot;" sourceRef="exclusivegateway2" targetRef="vorschaltseite">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${clickedButton == "back"}]]></conditionExpression>
+    </sequenceFlow>
+    <scriptTask id="validateForm" name="Formular validieren" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>// This code will be replaced by the build script. It is important
+// that this (or any other) comment is written here in the bpmn file
+// as the "buildModel" gradle task would otherwise create an empty
+// "xmlns" attribute, which would later lead to the very confusing
+// "Unexpected character" exception when trying to deploy the model.</script>
+    </scriptTask>
+    <sequenceFlow id="flow10" name="&quot;Weiter&quot;" sourceRef="exclusivegateway2" targetRef="validateForm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${clickedButton == "continue"}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow11" sourceRef="validateForm" targetRef="exclusivegateway3"></sequenceFlow>
+    <sequenceFlow id="flow13" name="nicht valide" sourceRef="exclusivegateway3" targetRef="applicantForm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isFormValid == false}]]></conditionExpression>
+    </sequenceFlow>
+    <scriptTask id="generateSummary" name="Zusammenfassung generieren" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>// This code will be replaced by the build script. It is important
+// that this (or any other) comment is written here in the bpmn file
+// as the "buildModel" gradle task would otherwise create an empty
+// "xmlns" attribute, which would later lead to the very confusing
+// "Unexpected character" exception when trying to deploy the model.</script>
+    </scriptTask>
+    <sequenceFlow id="flow14" name="OK" sourceRef="exclusivegateway3" targetRef="generateSummary">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isFormValid == true}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="summaryForm" name="TODO: Name Anpassen" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:MandantId:CustomerName_ProcessName_SummaryForm:v1.0"></userTask>
+    <sequenceFlow id="flow15" sourceRef="generateSummary" targetRef="summaryForm"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow16" sourceRef="summaryForm" targetRef="exclusivegateway4"></sequenceFlow>
+    <sequenceFlow id="flow17" sourceRef="exclusivegateway4" targetRef="setupPayment">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${clickedButton == "continue"}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow18" name="&quot;Angaben korrigieren&quot;" sourceRef="exclusivegateway4" targetRef="applicantForm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${clickedButton == "back"}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="payment" name="Bezahlung" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="payment">
+      <extensionElements>
+        <activiti:formProperty id="paymentConfig" expression="${paymentConfig}"></activiti:formProperty>
+        <activiti:formProperty id="transactionConfig" expression="${transactionConfig}"></activiti:formProperty>
+        <activiti:formProperty id="displayConfig" expression="${displayConfig}"></activiti:formProperty>
+        <activiti:formProperty id="result" expression="paymentResult"></activiti:formProperty>
+      </extensionElements>
     </userTask>
-    <endEvent id="processEnd" name="End"></endEvent>
+    <scriptTask id="setupPayment" name="Bezahlung konfigurieren" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>// This code will be replaced by the build script. It is important
+// that this (or any other) comment is written here in the bpmn file
+// as the "buildModel" gradle task would otherwise create an empty
+// "xmlns" attribute, which would later lead to the very confusing
+// "Unexpected character" exception when trying to deploy the model.</script>
+    </scriptTask>
+    <sequenceFlow id="flow19" sourceRef="setupPayment" targetRef="payment"></sequenceFlow>
+    <sequenceFlow id="flow20" sourceRef="payment" targetRef="createPdf"></sequenceFlow>
+    <serviceTask id="createPdf" name="PDF generieren" activiti:class="de.seitenbau.serviceportal.prozess.servicetask.PdfErstellenService">
+      <extensionElements>
+        <activiti:field name="source">
+          <activiti:expression><![CDATA[${applicantForm}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="target">
+          <activiti:expression><![CDATA[applicantFormAsPdf]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <scriptTask id="prepareFitConntectTransfer" name="Daten für Transfer vorbereiten" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>// This code will be replaced by the build script. It is important
+// that this (or any other) comment is written here in the bpmn file
+// as the "buildModel" gradle task would otherwise create an empty
+// "xmlns" attribute, which would later lead to the very confusing
+// "Unexpected character" exception when trying to deploy the model.</script>
+    </scriptTask>
+    <sequenceFlow id="flow21" sourceRef="createPdf" targetRef="prepareFitConntectTransfer"></sequenceFlow>
+    <serviceTask id="transferToFitConnect" name="Daten an FIT-Connect senden" activiti:class="de.seitenbau.serviceportal.prozess.servicetask.FitConnectSubmissionService">
+      <extensionElements>
+        <activiti:field name="clientId">
+          <activiti:expression><![CDATA[${fitConnectClientId}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="clientSecret">
+          <activiti:expression><![CDATA[${fitConnectClientSecret}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="destinationId">
+          <activiti:expression><![CDATA[${fitConnectDestinationId}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="serviceName">
+          <activiti:string><![CDATA[TODO: Muss vom Fachverfahrenshersteller erfragt werden]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="serviceIdentifier">
+          <activiti:string><![CDATA[TODO: Muss vom Fachverfahrenshersteller erfragt werden, z. B. urn:de:fim:leika:leistung:99001003004000]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="mimeType">
+          <activiti:string><![CDATA[TODO: Muss vom Fachverfahrenshersteller erfragt werden, z. B. application/json]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="schemaURI">
+          <activiti:string><![CDATA[TODO: Muss vom Fachverfahrenshersteller erfragt werden, z. B. https://schema.fitko.de/fim/s00000000009_1.0.0.schema.json]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="fachdaten">
+          <activiti:expression><![CDATA[${fitConnectPayload}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="attachments">
+          <activiti:expression><![CDATA[${fitConnectAttachments}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="target">
+          <activiti:string><![CDATA[fitConnectResult]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow22" sourceRef="prepareFitConntectTransfer" targetRef="transferToFitConnect"></sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="transferToFitConnect">
+      <errorEventDefinition errorRef="fitConnectSubmissionServiceError"></errorEventDefinition>
+    </boundaryEvent>
+    <scriptTask id="logFitConnectError" name="Fehler loggen" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>// This code will be replaced by the build script. It is important
+// that this (or any other) comment is written here in the bpmn file
+// as the "buildModel" gradle task would otherwise create an empty
+// "xmlns" attribute, which would later lead to the very confusing
+// "Unexpected character" exception when trying to deploy the model.</script>
+    </scriptTask>
+    <sequenceFlow id="flow23" sourceRef="boundaryerror1" targetRef="logFitConnectError"></sequenceFlow>
+    <userTask id="showOnceAfterFitConnectError" name="Fehler bei Datenübertragung" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="showOnce">
+      <documentation>${errorMessageForUser}</documentation>
+    </userTask>
+    <sequenceFlow id="flow24" sourceRef="logFitConnectError" targetRef="showOnceAfterFitConnectError"></sequenceFlow>
+    <scriptTask id="parseFitConnectResult" name="FIT-Connect Resultat verarbeiten" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>// This code will be replaced by the build script. It is important
+// that this (or any other) comment is written here in the bpmn file
+// as the "buildModel" gradle task would otherwise create an empty
+// "xmlns" attribute, which would later lead to the very confusing
+// "Unexpected character" exception when trying to deploy the model.</script>
+    </scriptTask>
+    <sequenceFlow id="flow25" sourceRef="transferToFitConnect" targetRef="parseFitConnectResult"></sequenceFlow>
+    <sequenceFlow id="flow26" sourceRef="showOnceAfterFitConnectError" targetRef="endevent1"></sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow27" sourceRef="parseFitConnectResult" targetRef="sendMessageToApplicant"></sequenceFlow>
+    <serviceTask id="sendMessageToApplicant" name="Nachricht an Nutzerkonto Bund schicken" activiti:class="de.seitenbau.serviceportal.prozess.servicetask.NachrichtVersendenService">
+      <extensionElements>
+        <activiti:field name="empfaenger">
+          <activiti:expression><![CDATA[${startParameter.startedByUser.postfachHandle}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="betreff">
+          <activiti:string><![CDATA[TODO_HIER_PROZESSNAME: Antrag eingegangen]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[Guten Tag,
+
+Ihr Antrag auf ein TODO_HIER_PROZESSNAME wurde erfolgreich an die zuständige Stelle übertragen. 
+
+Im Anhang finden Sie eine Kopie Ihrer gemachten Angaben als PDF-Datei.
+
+Bei der Übertragung wurden folgende IDs gesetzt:
+Einreichungs-ID: ${fitConnectSubmissionId}
+Vorgangs-ID der Einreichung: ${fitConnectCaseId}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="anhaenge">
+          <activiti:expression><![CDATA[${applicantFormAsPdf}]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow28" sourceRef="sendMessageToApplicant" targetRef="finalPage"></sequenceFlow>
+    <userTask id="finalPage" name="Antrag auf TODO_PROZESSNAME_HIER eingegangen" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="showOnce">
+      <documentation>Ihr Antrag wurde erfolgreich an die zuständige Stelle übertragen.
+
+TODO: NEXT STEPS HIER ERGÄNZEN: z. B. "Sie erhalten in 5-10 Werktagen den Bescheid postalisch zugeschickt."
+
+Sie können diese Seite nun schließen.</documentation>
+    </userTask>
+    <sequenceFlow id="flow29" sourceRef="finalPage" targetRef="endevent2"></sequenceFlow>
+    <textAnnotation id="textannotation1">
+      <text>TODO:
+
+- Erwartete Parameter auflisten
+- Korrektheit der Parameter validieren</text>
+    </textAnnotation>
+    <association id="association1" sourceRef="textannotation1" targetRef="readProcessParameters"></association>
+    <textAnnotation id="textannotation2">
+      <text>Vorschaltseite</text>
+    </textAnnotation>
+    <association id="association2" sourceRef="textannotation2" targetRef="vorschaltseite"></association>
+    <textAnnotation id="textannotation3">
+      <text>TODO: 
+
+- Validierungslogik einbauen</text>
+    </textAnnotation>
+    <association id="association3" sourceRef="textannotation3" targetRef="validatePreliminaryForm"></association>
+    <textAnnotation id="textannotation4">
+      <text>Antragsformular</text>
+    </textAnnotation>
+    <association id="association4" sourceRef="textannotation4" targetRef="applicantForm"></association>
+    <textAnnotation id="textannotation5">
+      <text>TODO:
+
+- FormKey anpassen
+- Formular individuell geslaten
+- Vertrauensniveaus festlegen</text>
+    </textAnnotation>
+    <association id="association5" sourceRef="textannotation5" targetRef="applicantForm"></association>
+    <textAnnotation id="textannotation6">
+      <text>Zusammenfassung-Seite</text>
+    </textAnnotation>
+    <association id="association6" sourceRef="textannotation6" targetRef="usertask1"></association>
+    <association id="association7" sourceRef="textannotation6" targetRef="summaryForm"></association>
+    <textAnnotation id="textannotation7">
+      <text>TODO
+
+- FormKey anpassen
+- Buttons anpassen</text>
+    </textAnnotation>
+    <association id="association8" sourceRef="textannotation7" targetRef="summaryForm"></association>
+    <textAnnotation id="textannotation8">
+      <text>TODO:
+
+- Konfigurieren oder entfernen</text>
+    </textAnnotation>
+    <association id="association9" sourceRef="textannotation8" targetRef="setupPayment"></association>
+    <association id="association10" sourceRef="textannotation8" targetRef="payment"></association>
+    <textAnnotation id="textannotation9">
+      <text>TODO:
+
+- Transformation der Daten in einen definierten, leistungsspezifischen Standard (i.d.R. FIM oder XÖV)</text>
+    </textAnnotation>
+    <association id="association11" sourceRef="textannotation9" targetRef="prepareFitConntectTransfer"></association>
+    <textAnnotation id="textannotation10">
+      <text>TODO:
+
+- Properties anpassen</text>
+    </textAnnotation>
+    <association id="association12" sourceRef="textannotation10" targetRef="transferToFitConnect"></association>
+    <textAnnotation id="textannotation11">
+      <text>TODO:
+
+- 2 Platzhalter in den Attributen austauschen</text>
+    </textAnnotation>
+    <association id="association13" sourceRef="textannotation11" targetRef="sendMessageToApplicant"></association>
+    <textAnnotation id="textannotation12">
+      <text>Abschlussseite</text>
+    </textAnnotation>
+    <association id="association14" sourceRef="textannotation12" targetRef="usertask1"></association>
+    <textAnnotation id="textannotation13">
+      <text>TODO: 
+
+- Prozessname im Titel ergänzen
+- Nächsten Schritte ergänzen</text>
+    </textAnnotation>
+    <association id="association15" sourceRef="textannotation13" targetRef="finalPage"></association>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_mMANDANTENID.customerNameProcessNameAllCamelCase">
     <bpmndi:BPMNPlane bpmnElement="mMANDANTENID.customerNameProcessNameAllCamelCase" id="BPMNPlane_mMANDANTENID.customerNameProcessNameAllCamelCase">
       <bpmndi:BPMNShape bpmnElement="processStart" id="BPMNShape_processStart">
         <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="192.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="exampleScript" id="BPMNShape_exampleScript">
-        <omgdc:Bounds height="60.0" width="100.0" x="160.0" y="270.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="init" id="BPMNShape_init">
+        <omgdc:Bounds height="60.0" width="100.0" x="140.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="exampleForm" id="BPMNShape_exampleForm">
-        <omgdc:Bounds height="60.0" width="100.0" x="160.0" y="180.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="vorschaltseite" id="BPMNShape_vorschaltseite">
+        <omgdc:Bounds height="60.0" width="100.0" x="470.0" y="181.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="applicantForm" id="BPMNShape_applicantForm">
+        <omgdc:Bounds height="60.0" width="100.0" x="790.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="readProcessParameters" id="BPMNShape_readProcessParameters">
+        <omgdc:Bounds height="60.0" width="100.0" x="271.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="validatePreliminaryForm" id="BPMNShape_validatePreliminaryForm">
+        <omgdc:Bounds height="60.0" width="100.0" x="590.0" y="181.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="710.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="900.0" y="192.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="validateForm" id="BPMNShape_validateForm">
+        <omgdc:Bounds height="60.0" width="100.0" x="1000.0" y="183.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="1119.0" y="192.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="generateSummary" id="BPMNShape_generateSummary">
+        <omgdc:Bounds height="60.0" width="100.0" x="1201.0" y="182.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="summaryForm" id="BPMNShape_summaryForm">
+        <omgdc:Bounds height="60.0" width="100.0" x="1310.0" y="182.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="2310.0" y="102.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway4" id="BPMNShape_exclusivegateway4">
+        <omgdc:Bounds height="40.0" width="40.0" x="1420.0" y="191.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="payment" id="BPMNShape_payment">
+        <omgdc:Bounds height="60.0" width="100.0" x="1630.0" y="183.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="setupPayment" id="BPMNShape_setupPayment">
+        <omgdc:Bounds height="60.0" width="100.0" x="1510.0" y="182.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="createPdf" id="BPMNShape_createPdf">
+        <omgdc:Bounds height="55.0" width="105.0" x="1781.0" y="185.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="prepareFitConntectTransfer" id="BPMNShape_prepareFitConntectTransfer">
+        <omgdc:Bounds height="60.0" width="100.0" x="1950.0" y="183.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="transferToFitConnect" id="BPMNShape_transferToFitConnect">
+        <omgdc:Bounds height="55.0" width="105.0" x="2070.0" y="184.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="2110.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="logFitConnectError" id="BPMNShape_logFitConnectError">
+        <omgdc:Bounds height="60.0" width="100.0" x="2073.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="showOnceAfterFitConnectError" id="BPMNShape_showOnceAfterFitConnectError">
+        <omgdc:Bounds height="60.0" width="100.0" x="2190.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parseFitConnectResult" id="BPMNShape_parseFitConnectResult">
+        <omgdc:Bounds height="60.0" width="100.0" x="2190.0" y="182.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="2690.0" y="195.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sendMessageToApplicant" id="BPMNShape_sendMessageToApplicant">
+        <omgdc:Bounds height="55.0" width="137.0" x="2344.0" y="185.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="finalPage" id="BPMNShape_finalPage">
-        <omgdc:Bounds height="60.0" width="100.0" x="310.0" y="180.0"></omgdc:Bounds>
+        <omgdc:Bounds height="60.0" width="100.0" x="2530.0" y="183.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="processEnd" id="BPMNShape_processEnd">
-        <omgdc:Bounds height="35.0" width="35.0" x="480.0" y="192.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="71.0" width="199.0" x="221.0" y="320.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
+        <omgdc:Bounds height="50.0" width="100.0" x="470.0" y="51.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
+        <omgdc:Bounds height="50.0" width="162.0" x="559.0" y="320.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation4" id="BPMNShape_textannotation4">
+        <omgdc:Bounds height="50.0" width="100.0" x="790.0" y="51.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation5" id="BPMNShape_textannotation5">
+        <omgdc:Bounds height="70.0" width="160.0" x="760.0" y="321.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation6" id="BPMNShape_textannotation6">
+        <omgdc:Bounds height="50.0" width="100.0" x="1310.0" y="51.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation7" id="BPMNShape_textannotation7">
+        <omgdc:Bounds height="71.0" width="181.0" x="1269.0" y="320.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation8" id="BPMNShape_textannotation8">
+        <omgdc:Bounds height="50.0" width="215.0" x="1510.0" y="331.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation9" id="BPMNShape_textannotation9">
+        <omgdc:Bounds height="102.0" width="142.0" x="1929.0" y="309.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation10" id="BPMNShape_textannotation10">
+        <omgdc:Bounds height="102.0" width="100.0" x="2073.0" y="309.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation11" id="BPMNShape_textannotation11">
+        <omgdc:Bounds height="102.0" width="100.0" x="2363.0" y="309.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation12" id="BPMNShape_textannotation12">
+        <omgdc:Bounds height="50.0" width="100.0" x="2530.0" y="51.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation13" id="BPMNShape_textannotation13">
+        <omgdc:Bounds height="102.0" width="100.0" x="2530.0" y="309.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="105.0" y="209.0"></omgdi:waypoint>
+        <omgdi:waypoint x="140.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="240.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="271.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="371.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="470.0" y="211.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="570.0" y="211.0"></omgdi:waypoint>
+        <omgdi:waypoint x="590.0" y="211.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="690.0" y="211.0"></omgdi:waypoint>
+        <omgdi:waypoint x="710.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="730.0" y="230.0"></omgdi:waypoint>
+        <omgdi:waypoint x="730.0" y="271.0"></omgdi:waypoint>
+        <omgdi:waypoint x="520.0" y="271.0"></omgdi:waypoint>
+        <omgdi:waypoint x="520.0" y="241.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="52.0" x="660.0" y="253.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="750.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="790.0" y="210.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="15.0" x="759.0" y="194.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="890.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="900.0" y="212.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="920.0" y="232.0"></omgdi:waypoint>
+        <omgdi:waypoint x="919.0" y="280.0"></omgdi:waypoint>
+        <omgdi:waypoint x="519.0" y="280.0"></omgdi:waypoint>
+        <omgdi:waypoint x="520.0" y="241.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="41.0" x="861.0" y="268.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="940.0" y="212.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1000.0" y="213.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="39.0" x="939.0" y="198.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="1100.0" y="213.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1119.0" y="212.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="1139.0" y="192.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1139.0" y="158.0"></omgdi:waypoint>
+        <omgdi:waypoint x="840.0" y="158.0"></omgdi:waypoint>
+        <omgdi:waypoint x="840.0" y="180.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="52.0" x="1040.0" y="146.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="1159.0" y="212.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1201.0" y="212.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="15.0" x="1158.0" y="199.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="1301.0" y="212.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1310.0" y="212.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="1410.0" y="212.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1420.0" y="211.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="1460.0" y="211.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1510.0" y="212.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="1440.0" y="191.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1440.0" y="129.0"></omgdi:waypoint>
+        <omgdi:waypoint x="839.0" y="129.0"></omgdi:waypoint>
+        <omgdi:waypoint x="840.0" y="180.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="39.0" width="100.0" x="1159.0" y="101.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="1610.0" y="212.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1630.0" y="213.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="1730.0" y="213.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1781.0" y="212.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="1886.0" y="212.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1950.0" y="213.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="2050.0" y="213.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2070.0" y="211.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="2125.0" y="170.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2123.0" y="150.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="2173.0" y="120.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2190.0" y="120.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="2175.0" y="211.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2190.0" y="212.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="2290.0" y="120.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2310.0" y="119.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
+        <omgdi:waypoint x="2290.0" y="212.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2344.0" y="212.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
+        <omgdi:waypoint x="2481.0" y="212.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2530.0" y="213.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
+        <omgdi:waypoint x="2630.0" y="213.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2690.0" y="212.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
+        <omgdi:waypoint x="320.0" y="320.0"></omgdi:waypoint>
+        <omgdi:waypoint x="321.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
+        <omgdi:waypoint x="520.0" y="101.0"></omgdi:waypoint>
+        <omgdi:waypoint x="520.0" y="181.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
+        <omgdi:waypoint x="640.0" y="320.0"></omgdi:waypoint>
+        <omgdi:waypoint x="640.0" y="241.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association4" id="BPMNEdge_association4">
+        <omgdi:waypoint x="840.0" y="101.0"></omgdi:waypoint>
+        <omgdi:waypoint x="840.0" y="180.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association5" id="BPMNEdge_association5">
+        <omgdi:waypoint x="840.0" y="321.0"></omgdi:waypoint>
+        <omgdi:waypoint x="840.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association7" id="BPMNEdge_association7">
+        <omgdi:waypoint x="1360.0" y="101.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1360.0" y="182.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association8" id="BPMNEdge_association8">
+        <omgdi:waypoint x="1359.0" y="320.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1360.0" y="242.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association9" id="BPMNEdge_association9">
+        <omgdi:waypoint x="1617.0" y="331.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1560.0" y="242.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association10" id="BPMNEdge_association10">
+        <omgdi:waypoint x="1617.0" y="331.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1680.0" y="243.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association11" id="BPMNEdge_association11">
+        <omgdi:waypoint x="2000.0" y="309.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2000.0" y="243.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association12" id="BPMNEdge_association12">
+        <omgdi:waypoint x="2123.0" y="309.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2122.0" y="239.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association13" id="BPMNEdge_association13">
+        <omgdi:waypoint x="2413.0" y="309.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2412.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association15" id="BPMNEdge_association15">
+        <omgdi:waypoint x="2580.0" y="309.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2580.0" y="243.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </definitions>

@@ -1,0 +1,76 @@
+{
+  "id": "MandantId:CustomerName_ProcessName_SummaryForm:v1.0",
+  "title": "Zusammenfassung",
+  "sections": [
+    {
+      "title": "",
+      "fieldGroups": [
+        {
+          "title": "Zusammenfassung",
+          "rows": [
+            {
+              "fields": [
+                {
+                  "id": "summaryHint",
+                  "label": "Antrag prüfen",
+                  "type": "HINTBOX",
+                  "width": 12,
+                  "additionalConfig": {
+                    "@type": "AdditionalHintboxConfig",
+                    "text": "Bitte prüfen Sie Ihre unten gemachten Angaben. Anschließend können Sie im Prozess weitermachen.",
+                    "status": "INFO"
+                  }
+                }
+              ]
+            },
+            {
+              "fields": [
+                {
+                  "id": "summary",
+                  "label": "",
+                  "type": "TEXT",
+                  "width": 12,
+                  "validationRules": [],
+                  "source": {
+                    "service": "prozess",
+                    "variableName": "summaryAsHtml"
+                  }
+                }
+              ]
+            }
+          ],
+          "id": "summaryGroup"
+        }
+      ]
+    }
+  ],
+  "source": {
+    "service": "prozess",
+    "variableName": "summaryForm"
+  },
+  "target": {
+    "service": "prozess",
+    "variableName": "summaryForm"
+  },
+  "customButtons": {
+    "buttons": [
+      {
+        "value": "back",
+        "label": "Angaben korrigieren",
+        "primary": false,
+        "skipValidation": true,
+        "helptext": "Zurück zum Eingabeformular"
+      },
+      {
+        "value": "continue",
+        "label": "TODO: Anpassen \"Antrag einreichen\" oder \"Zur Bezahlung\"",
+        "primary": true,
+        "helptext": "TODO: Anpassen \"Antrag verbindlich bei der zuständigen Stelle einreichen\" oder \"Nach der Bezahlung werden Ihre Daten bei der zuständige Stelle eingereicht\""
+      }
+    ],
+    "target": {
+      "service": "prozess",
+      "variableName": "clickedButton"
+    }
+  }
+}
