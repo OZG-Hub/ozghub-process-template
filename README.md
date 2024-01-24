@@ -1,12 +1,9 @@
-# OZG-Hub Process Template
+# GovTec campus event support process "submit forms"
 
-This repository serves as a standardized template for OZG-Hub processes (also called "Onlinedienste" in this context).
-
-# Usage
-Please see [Wiki](https://github.com/OZG-Hub/ozghub-process-template/wiki) for instructions on how to use this template.
+During the workshop phase at the GovTec Campus event on 2024-02-07 in Berlin, participates will be able to submit the forms they've created. This repository is a OZG-Hub process that can be used to submit and retrieve those forms.
 
 # License
-Copyright 2023 SEITENBAU GmbH
+Copyright 2024 SEITENBAU GmbH
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
@@ -16,6 +13,4 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 
 # Contributing
-This project was initially developed by _SEITENBAU_ according to the requirements of the _Innenministerium Baden-Württemberg_ and the _Sächsische Staatskanzlei_ but contributions from other parties are welcome and help to improve the Serviceportale ecosystem.
-
-If you fixed a bug, added a new feature or found another way to improve this project, feel free to [open a Pull Request](https://github.com/OZG-Hub/ozghub-process-template/pulls) if you already have some code ready. If you haven't started working on your contribution yet and wish to initiate a discussion, feel free to [open an issue](https://github.com/OZG-Hub/ozghub-process-template/issues) (in German or English).
+This process will be used for a single event. We are not looking for contributions. If you have any questions though, feel free to [open an issue](https://github.com/Nijin22/submit-form-for-govtec-event-2024/issues).
