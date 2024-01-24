@@ -9,30 +9,10 @@
 // "xmlns" attribute, which would later lead to the very confusing
 // "Unexpected character" exception when trying to deploy the model.</script>
     </scriptTask>
-    <userTask id="vorschaltseite" name="TODO: Name Anpassen" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:MandantId:CustomerName_ProcessName_PreliminaryForm:v1.0"></userTask>
     <userTask id="applicantForm" name="TODO: Name Anpassen" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:MandantId:CustomerName_ProcessName_ApplicantForm:v1.0"></userTask>
     <sequenceFlow id="flow1" sourceRef="processStart" targetRef="init"></sequenceFlow>
-    <scriptTask id="validatePreliminaryForm" name="Vorschaltseite validieren" scriptFormat="groovy" activiti:autoStoreVariables="false">
-      <script>// This code will be replaced by the build script. It is important
-// that this (or any other) comment is written here in the bpmn file
-// as the "buildModel" gradle task would otherwise create an empty
-// "xmlns" attribute, which would later lead to the very confusing
-// "Unexpected character" exception when trying to deploy the model.</script>
-    </scriptTask>
-    <sequenceFlow id="flow4" sourceRef="vorschaltseite" targetRef="validatePreliminaryForm"></sequenceFlow>
-    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow5" sourceRef="validatePreliminaryForm" targetRef="exclusivegateway1"></sequenceFlow>
-    <sequenceFlow id="flow6" name="nicht valide" sourceRef="exclusivegateway1" targetRef="vorschaltseite">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isFormValid == false}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow7" name="OK" sourceRef="exclusivegateway1" targetRef="applicantForm">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isFormValid == true}]]></conditionExpression>
-    </sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow8" sourceRef="applicantForm" targetRef="exclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow9" name="&quot;Zurück&quot;" sourceRef="exclusivegateway2" targetRef="vorschaltseite">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${clickedButton == "back"}]]></conditionExpression>
-    </sequenceFlow>
     <scriptTask id="validateForm" name="Formular validieren" scriptFormat="groovy" activiti:autoStoreVariables="false">
       <script>// This code will be replaced by the build script. It is important
 // that this (or any other) comment is written here in the bpmn file
@@ -198,17 +178,7 @@ TODO: NEXT STEPS HIER ERGÄNZEN: z. B. "Sie erhalten in 5-10 Werktagen den Bes
 Sie können diese Seite nun schließen.</documentation>
     </userTask>
     <sequenceFlow id="flow29" sourceRef="finalPage" targetRef="endevent2"></sequenceFlow>
-    <sequenceFlow id="flow30" sourceRef="init" targetRef="vorschaltseite"></sequenceFlow>
-    <textAnnotation id="textannotation2">
-      <text>Vorschaltseite</text>
-    </textAnnotation>
-    <association id="association2" sourceRef="textannotation2" targetRef="vorschaltseite"></association>
-    <textAnnotation id="textannotation3">
-      <text>TODO: 
-
-- Validierungslogik einbauen</text>
-    </textAnnotation>
-    <association id="association3" sourceRef="textannotation3" targetRef="validatePreliminaryForm"></association>
+    <sequenceFlow id="flow30" sourceRef="init" targetRef="applicantForm"></sequenceFlow>
     <textAnnotation id="textannotation4">
       <text>Antragsformular</text>
     </textAnnotation>
@@ -278,17 +248,8 @@ Sie können diese Seite nun schließen.</documentation>
       <bpmndi:BPMNShape bpmnElement="init" id="BPMNShape_init">
         <omgdc:Bounds height="60.0" width="100.0" x="140.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="vorschaltseite" id="BPMNShape_vorschaltseite">
-        <omgdc:Bounds height="60.0" width="100.0" x="470.0" y="181.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="applicantForm" id="BPMNShape_applicantForm">
         <omgdc:Bounds height="60.0" width="100.0" x="790.0" y="180.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="validatePreliminaryForm" id="BPMNShape_validatePreliminaryForm">
-        <omgdc:Bounds height="60.0" width="100.0" x="590.0" y="181.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
-        <omgdc:Bounds height="40.0" width="40.0" x="710.0" y="190.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40.0" width="40.0" x="900.0" y="192.0"></omgdc:Bounds>
@@ -347,12 +308,6 @@ Sie können diese Seite nun schließen.</documentation>
       <bpmndi:BPMNShape bpmnElement="finalPage" id="BPMNShape_finalPage">
         <omgdc:Bounds height="60.0" width="100.0" x="2530.0" y="183.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
-        <omgdc:Bounds height="50.0" width="100.0" x="470.0" y="51.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
-        <omgdc:Bounds height="50.0" width="162.0" x="559.0" y="320.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation4" id="BPMNShape_textannotation4">
         <omgdc:Bounds height="50.0" width="100.0" x="790.0" y="51.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -387,42 +342,9 @@ Sie können diese Seite nun schließen.</documentation>
         <omgdi:waypoint x="105.0" y="209.0"></omgdi:waypoint>
         <omgdi:waypoint x="140.0" y="210.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="570.0" y="211.0"></omgdi:waypoint>
-        <omgdi:waypoint x="590.0" y="211.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="690.0" y="211.0"></omgdi:waypoint>
-        <omgdi:waypoint x="710.0" y="210.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
-        <omgdi:waypoint x="730.0" y="230.0"></omgdi:waypoint>
-        <omgdi:waypoint x="730.0" y="271.0"></omgdi:waypoint>
-        <omgdi:waypoint x="520.0" y="271.0"></omgdi:waypoint>
-        <omgdi:waypoint x="520.0" y="241.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="52.0" x="660.0" y="253.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="750.0" y="210.0"></omgdi:waypoint>
-        <omgdi:waypoint x="790.0" y="210.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="15.0" x="759.0" y="194.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
         <omgdi:waypoint x="890.0" y="210.0"></omgdi:waypoint>
         <omgdi:waypoint x="900.0" y="212.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
-        <omgdi:waypoint x="920.0" y="232.0"></omgdi:waypoint>
-        <omgdi:waypoint x="919.0" y="280.0"></omgdi:waypoint>
-        <omgdi:waypoint x="519.0" y="280.0"></omgdi:waypoint>
-        <omgdi:waypoint x="520.0" y="241.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="41.0" x="861.0" y="268.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
         <omgdi:waypoint x="940.0" y="212.0"></omgdi:waypoint>
@@ -518,15 +440,7 @@ Sie können diese Seite nun schließen.</documentation>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
         <omgdi:waypoint x="240.0" y="210.0"></omgdi:waypoint>
-        <omgdi:waypoint x="470.0" y="211.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
-        <omgdi:waypoint x="520.0" y="101.0"></omgdi:waypoint>
-        <omgdi:waypoint x="520.0" y="181.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
-        <omgdi:waypoint x="640.0" y="320.0"></omgdi:waypoint>
-        <omgdi:waypoint x="640.0" y="241.0"></omgdi:waypoint>
+        <omgdi:waypoint x="790.0" y="210.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association4" id="BPMNEdge_association4">
         <omgdi:waypoint x="840.0" y="101.0"></omgdi:waypoint>
