@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="ELEKTRONISCHER_ANTRAG">
-  <process id="mMANDANTENID.customerNameProcessNameAllCamelCase" name="Replace_me_with_a_user_facing_process_name" isExecutable="true">
+  <process id="m102.govTecEventSubmitForm" name="Formular am GovTec Campus Event 2024-02-07 einreichen" isExecutable="true">
     <startEvent id="processStart" name="Start"></startEvent>
     <scriptTask id="init" name="Prozess initiieren" scriptFormat="groovy" activiti:autoStoreVariables="false">
       <script>// This code will be replaced by the build script. It is important
@@ -285,8 +285,8 @@ Sie können diese Seite nun schließen.</documentation>
     </textAnnotation>
     <association id="association15" sourceRef="textannotation13" targetRef="finalPage"></association>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_mMANDANTENID.customerNameProcessNameAllCamelCase">
-    <bpmndi:BPMNPlane bpmnElement="mMANDANTENID.customerNameProcessNameAllCamelCase" id="BPMNPlane_mMANDANTENID.customerNameProcessNameAllCamelCase">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_m102.govTecEventSubmitForm">
+    <bpmndi:BPMNPlane bpmnElement="m102.govTecEventSubmitForm" id="BPMNPlane_m102.govTecEventSubmitForm">
       <bpmndi:BPMNShape bpmnElement="processStart" id="BPMNShape_processStart">
         <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="192.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
