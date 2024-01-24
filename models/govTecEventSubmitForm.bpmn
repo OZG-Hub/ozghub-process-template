@@ -9,10 +9,8 @@
 // "xmlns" attribute, which would later lead to the very confusing
 // "Unexpected character" exception when trying to deploy the model.</script>
     </scriptTask>
-    <userTask id="applicantForm" name="TODO: Name Anpassen" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:MandantId:CustomerName_ProcessName_ApplicantForm:v1.0"></userTask>
+    <userTask id="applicantForm" name="Formular am GovTec Campus Event 2024-02-07 einreichen" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:102:govTecEventSubmitForm_ApplicantForm:v1.0"></userTask>
     <sequenceFlow id="flow1" sourceRef="processStart" targetRef="init"></sequenceFlow>
-    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow8" sourceRef="applicantForm" targetRef="exclusivegateway2"></sequenceFlow>
     <scriptTask id="validateForm" name="Formular validieren" scriptFormat="groovy" activiti:autoStoreVariables="false">
       <script>// This code will be replaced by the build script. It is important
 // that this (or any other) comment is written here in the bpmn file
@@ -20,9 +18,6 @@
 // "xmlns" attribute, which would later lead to the very confusing
 // "Unexpected character" exception when trying to deploy the model.</script>
     </scriptTask>
-    <sequenceFlow id="flow10" name="&quot;Weiter&quot;" sourceRef="exclusivegateway2" targetRef="validateForm">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${clickedButton == "continue"}]]></conditionExpression>
-    </sequenceFlow>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow11" sourceRef="validateForm" targetRef="exclusivegateway3"></sequenceFlow>
     <sequenceFlow id="flow13" name="nicht valide" sourceRef="exclusivegateway3" targetRef="applicantForm">
@@ -179,18 +174,11 @@ Sie können diese Seite nun schließen.</documentation>
     </userTask>
     <sequenceFlow id="flow29" sourceRef="finalPage" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow30" sourceRef="init" targetRef="applicantForm"></sequenceFlow>
+    <sequenceFlow id="flow31" sourceRef="applicantForm" targetRef="validateForm"></sequenceFlow>
     <textAnnotation id="textannotation4">
       <text>Antragsformular</text>
     </textAnnotation>
     <association id="association4" sourceRef="textannotation4" targetRef="applicantForm"></association>
-    <textAnnotation id="textannotation5">
-      <text>TODO:
-
-- FormKey anpassen
-- Formular individuell geslaten
-- Vertrauensniveaus festlegen</text>
-    </textAnnotation>
-    <association id="association5" sourceRef="textannotation5" targetRef="applicantForm"></association>
     <textAnnotation id="textannotation6">
       <text>Zusammenfassung-Seite</text>
     </textAnnotation>
@@ -251,9 +239,6 @@ Sie können diese Seite nun schließen.</documentation>
       <bpmndi:BPMNShape bpmnElement="applicantForm" id="BPMNShape_applicantForm">
         <omgdc:Bounds height="60.0" width="100.0" x="790.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
-        <omgdc:Bounds height="40.0" width="40.0" x="900.0" y="192.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="validateForm" id="BPMNShape_validateForm">
         <omgdc:Bounds height="60.0" width="100.0" x="1000.0" y="183.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -311,9 +296,6 @@ Sie können diese Seite nun schließen.</documentation>
       <bpmndi:BPMNShape bpmnElement="textannotation4" id="BPMNShape_textannotation4">
         <omgdc:Bounds height="50.0" width="100.0" x="790.0" y="51.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation5" id="BPMNShape_textannotation5">
-        <omgdc:Bounds height="70.0" width="160.0" x="760.0" y="321.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation6" id="BPMNShape_textannotation6">
         <omgdc:Bounds height="50.0" width="100.0" x="1310.0" y="51.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -341,17 +323,6 @@ Sie können diese Seite nun schließen.</documentation>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="105.0" y="209.0"></omgdi:waypoint>
         <omgdi:waypoint x="140.0" y="210.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="890.0" y="210.0"></omgdi:waypoint>
-        <omgdi:waypoint x="900.0" y="212.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
-        <omgdi:waypoint x="940.0" y="212.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1000.0" y="213.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="13.0" width="39.0" x="939.0" y="198.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
         <omgdi:waypoint x="1100.0" y="213.0"></omgdi:waypoint>
@@ -442,13 +413,13 @@ Sie können diese Seite nun schließen.</documentation>
         <omgdi:waypoint x="240.0" y="210.0"></omgdi:waypoint>
         <omgdi:waypoint x="790.0" y="210.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
+        <omgdi:waypoint x="890.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1000.0" y="213.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association4" id="BPMNEdge_association4">
         <omgdi:waypoint x="840.0" y="101.0"></omgdi:waypoint>
         <omgdi:waypoint x="840.0" y="180.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association5" id="BPMNEdge_association5">
-        <omgdi:waypoint x="840.0" y="321.0"></omgdi:waypoint>
-        <omgdi:waypoint x="840.0" y="240.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association7" id="BPMNEdge_association7">
         <omgdi:waypoint x="1360.0" y="101.0"></omgdi:waypoint>

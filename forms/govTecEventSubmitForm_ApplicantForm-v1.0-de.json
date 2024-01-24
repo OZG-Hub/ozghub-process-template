@@ -1,0 +1,110 @@
+{
+  "id": "102:govTecEventSubmitForm_ApplicantForm:v1.0",
+  "title": "Formular am GovTec Campus Event 2024-02-07 einreichen",
+  "sections": [
+    {
+      "title": "",
+      "fieldGroups": [
+        {
+          "title": "",
+          "rows": [
+            {
+              "fields": [
+                {
+                  "id": "workshopGroup",
+                  "label": "Zu welcher Workshop-Gruppe gehören Sie?",
+                  "type": "RADIO_BUTTONS",
+                  "layout": "",
+                  "possibleValues": [
+                    {
+                      "value": "taxi",
+                      "label": "Gruppe \"Taxi\""
+                    },
+                    {
+                      "value": "hund",
+                      "label": "Gruppe \"Hund\""
+                    }
+                  ],
+                  "value": "",
+                  "width": 12,
+                  "validationRules": [],
+                  "required": true
+                }
+              ]
+            },
+            {
+              "fields": [
+                {
+                  "id": "teamName",
+                  "label": "Teamname",
+                  "type": "STRING",
+                  "width": 12,
+                  "validationRules": [],
+                  "required": true,
+                  "placeholder": "z. B. \"Die Golden Retriever\" oder \"Team Mercedes\""
+                }
+              ]
+            },
+            {
+              "fields": [
+                {
+                  "id": "formFile",
+                  "label": "Formulardatei (*.json-Format)",
+                  "type": "MULTIPLE_FILE",
+                  "width": 12,
+                  "validationRules": [
+                    {
+                      "@type": "MaxFileCountValidator",
+                      "maxFileCount": 1,
+                      "validationErrorMessage": "Es kann nur ein Formular eingereicht werden."
+                    },
+                    {
+                      "@type": "MaxFilesizeValidator",
+                      "maxFilesize": "1000000",
+                      "validationErrorMessage": "Das eingereichte Formular darf maximal 1 MB groß sein."
+                    },
+                    {
+                      "@type": "FileExtensionValidator",
+                      "values": [
+                        "json"
+                      ],
+                      "validationErrorMessage": "Bitte wählen Sie eine Formulardefinitionsdatei aus, die auf *.json endet."
+                    }
+                  ],
+                  "additionalConfig": {
+                    "@type": "AdditionalFileConfig",
+                    "compress": false
+                  },
+                  "required": true
+                }
+              ]
+            }
+          ],
+          "id": "mainGroup"
+        }
+      ]
+    }
+  ],
+  "source": {
+    "service": "prozess",
+    "variableName": "applicantForm"
+  },
+  "target": {
+    "service": "prozess",
+    "variableName": "applicantForm"
+  },
+  "customButtons": {
+    "buttons": [
+      {
+        "value": "continue",
+        "label": "Weiter zur Zusammenfassung",
+        "primary": true,
+        "helptext": "Weiter zur Zusammenfassung (Sie können Ihre gemachten Angaben nochmals überprüfen, bevor sie abgeschickt werden)."
+      }
+    ],
+    "target": {
+      "service": "prozess",
+      "variableName": "clickedButton"
+    }
+  }
+}
