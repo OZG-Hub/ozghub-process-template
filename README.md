@@ -1,6 +1,10 @@
 # GovTec campus event support process "submit forms"
 
-During the workshop phase at the GovTec Campus event on 2024-02-07 in Berlin, participates will be able to submit the forms they've created. This repository is a OZG-Hub process that can be used to submit and retrieve those forms.
+During the workshop phase at the GovTec Campus event on 2024-02-07 in Berlin, participates will be able to submit the forms they've created.
+This repository is a OZG-Hub process that can be used to submit and retrieve those forms.
+
+The process is supposed to be available at https://dev.behoerden-serviceportal.de/onlineantraege/onlineantrag?prozessKey=m102.govTecEventSubmitForm.
+The submitted forms are sent to the 'testUserPST' user on the integration system of bund.id.
 
 # License
 Copyright 2024 SEITENBAU GmbH
