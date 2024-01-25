@@ -50,13 +50,9 @@
           <activiti:expression><![CDATA[${messageSubject}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression><![CDATA[Yo!
+          <activiti:expression><![CDATA[Hallo GovTec-Event-Team,
 
-You know what to do.
-
-HDGDL 😘
-
-Dein "Formular am GovTec Campus Event 2024-02-07 einreichen"-Prozess]]></activiti:expression>
+ein Team hat ein Formular eingereicht. Dies findet sich im Anhang zu dieser Nachricht. Der Formularname und die Dateiendung muss noch angepasst werden. Die korrekte Anbindung an eine Prozessinstanzvariable muss ebenfalls überprüft werden.]]></activiti:expression>
         </activiti:field>
         <activiti:field name="anhaenge">
           <activiti:expression><![CDATA[${messageAttachments}]]></activiti:expression>
