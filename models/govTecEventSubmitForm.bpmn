@@ -33,7 +33,7 @@
     <sequenceFlow id="flow14" name="OK" sourceRef="exclusivegateway3" targetRef="generateSummary">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isFormValid == true}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="summaryForm" name="TODO: Name Anpassen" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:MandantId:CustomerName_ProcessName_SummaryForm:v1.0"></userTask>
+    <userTask id="summaryForm" name="Formular am GovTec Campus Event 2024-02-07 einreichen - Zusammenfassung" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:102:govTecEventSubmitForm_SummaryForm:v1.0"></userTask>
     <sequenceFlow id="flow15" sourceRef="generateSummary" targetRef="summaryForm"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
     <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>

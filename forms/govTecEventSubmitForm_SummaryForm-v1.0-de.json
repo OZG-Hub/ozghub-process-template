@@ -1,5 +1,5 @@
 {
-  "id": "MandantId:CustomerName_ProcessName_SummaryForm:v1.0",
+  "id": "102:govTecEventSubmitForm_SummaryForm:v1.0",
   "title": "Zusammenfassung",
   "sections": [
     {
@@ -63,9 +63,9 @@
       },
       {
         "value": "continue",
-        "label": "TODO: Anpassen \"Antrag einreichen\" oder \"Zur Bezahlung\"",
+        "label": "Formular einreichen",
         "primary": true,
-        "helptext": "TODO: Anpassen \"Antrag verbindlich bei der zuständigen Stelle einreichen\" oder \"Nach der Bezahlung werden Ihre Daten bei der zuständige Stelle eingereicht\""
+        "helptext": ""
       }
     ],
     "target": {
