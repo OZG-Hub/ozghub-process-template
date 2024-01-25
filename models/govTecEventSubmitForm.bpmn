@@ -64,10 +64,8 @@ Dein "Formular am GovTec Campus Event 2024-02-07 einreichen"-Prozess]]></activit
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow28" sourceRef="sendMessageToApplicant" targetRef="finalPage"></sequenceFlow>
-    <userTask id="finalPage" name="Antrag auf TODO_PROZESSNAME_HIER eingegangen" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="showOnce">
-      <documentation>Ihr Antrag wurde erfolgreich an die zuständige Stelle übertragen.
-
-TODO: NEXT STEPS HIER ERGÄNZEN: z. B. "Sie erhalten in 5-10 Werktagen den Bescheid postalisch zugeschickt."
+    <userTask id="finalPage" name="Formular übermittelt." activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="showOnce">
+      <documentation>Vielen Dank, Ihr Formular wurde an das Eventteam übermittelt!
 
 Sie können diese Seite nun schließen.</documentation>
     </userTask>
@@ -96,13 +94,7 @@ Sie können diese Seite nun schließen.</documentation>
       <text>Abschlussseite</text>
     </textAnnotation>
     <association id="association14" sourceRef="textannotation12" targetRef="usertask1"></association>
-    <textAnnotation id="textannotation13">
-      <text>TODO: 
-
-- Prozessname im Titel ergänzen
-- Nächsten Schritte ergänzen</text>
-    </textAnnotation>
-    <association id="association15" sourceRef="textannotation13" targetRef="finalPage"></association>
+    <association id="association15" sourceRef="textannotation12" targetRef="finalPage"></association>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_m102.govTecEventSubmitForm">
     <bpmndi:BPMNPlane bpmnElement="m102.govTecEventSubmitForm" id="BPMNPlane_m102.govTecEventSubmitForm">
@@ -150,9 +142,6 @@ Sie können diese Seite nun schließen.</documentation>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation12" id="BPMNShape_textannotation12">
         <omgdc:Bounds height="50.0" width="100.0" x="2530.0" y="51.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation13" id="BPMNShape_textannotation13">
-        <omgdc:Bounds height="102.0" width="100.0" x="2530.0" y="309.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="105.0" y="209.0"></omgdi:waypoint>
@@ -228,8 +217,8 @@ Sie können diese Seite nun schließen.</documentation>
         <omgdi:waypoint x="1360.0" y="182.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association15" id="BPMNEdge_association15">
-        <omgdi:waypoint x="2580.0" y="309.0"></omgdi:waypoint>
-        <omgdi:waypoint x="2580.0" y="243.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2580.0" y="101.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2580.0" y="183.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
