@@ -1,5 +1,6 @@
-package processIdHere
+package govTecEventSubmitForm
 
+import commons.serviceportal.helpers.ServiceportalLogger
 import de.seitenbau.serviceportal.scripting.api.v1.ScriptingApiV1
 
 ScriptingApiV1 api = apiV1 // Variable is automatically set by Serviceportal process engine
@@ -7,3 +8,5 @@ ScriptingApiV1 api = apiV1 // Variable is automatically set by Serviceportal pro
 // Allow users to stop/delete the currently running process instance
 // See https://doku.pmp.seitenbau.com/pages/viewpage.action?pageId=394836
 api.setVariable("killable", true)
+
+ServiceportalLogger.logDebug("api.startParameter.startedByUser.postfachHandle = '${api.startParameter.startedByUser.postfachHandle}'")

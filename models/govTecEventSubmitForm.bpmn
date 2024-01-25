@@ -44,24 +44,22 @@
     <serviceTask id="sendMessageToApplicant" name="Nachricht an Nutzerkonto Bund schicken" activiti:class="de.seitenbau.serviceportal.prozess.servicetask.NachrichtVersendenService">
       <extensionElements>
         <activiti:field name="empfaenger">
-          <activiti:expression><![CDATA[${startParameter.startedByUser.postfachHandle}]]></activiti:expression>
+          <activiti:expression><![CDATA[${messageRecipient}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="betreff">
-          <activiti:string><![CDATA[TODO_HIER_PROZESSNAME: Antrag eingegangen]]></activiti:string>
+          <activiti:expression><![CDATA[${messageSubject}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression><![CDATA[Guten Tag,
+          <activiti:expression><![CDATA[Yo!
 
-Ihr Antrag auf ein TODO_HIER_PROZESSNAME wurde erfolgreich an die zuständige Stelle übertragen. 
+You know what to do.
 
-Im Anhang finden Sie eine Kopie Ihrer gemachten Angaben als PDF-Datei.
+HDGDL 😘
 
-Bei der Übertragung wurden folgende IDs gesetzt:
-Einreichungs-ID: ${fitConnectSubmissionId}
-Vorgangs-ID der Einreichung: ${fitConnectCaseId}]]></activiti:expression>
+Dein "Formular am GovTec Campus Event 2024-02-07 einreichen"-Prozess]]></activiti:expression>
         </activiti:field>
         <activiti:field name="anhaenge">
-          <activiti:expression><![CDATA[${applicantFormAsPdf}]]></activiti:expression>
+          <activiti:expression><![CDATA[${messageAttachments}]]></activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -76,7 +74,15 @@ Sie können diese Seite nun schließen.</documentation>
     <sequenceFlow id="flow29" sourceRef="finalPage" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow30" sourceRef="init" targetRef="applicantForm"></sequenceFlow>
     <sequenceFlow id="flow31" sourceRef="applicantForm" targetRef="validateForm"></sequenceFlow>
-    <sequenceFlow id="flow32" sourceRef="exclusivegateway4" targetRef="sendMessageToApplicant"></sequenceFlow>
+    <sequenceFlow id="flow32" sourceRef="exclusivegateway4" targetRef="prepareMessageToBundId"></sequenceFlow>
+    <scriptTask id="prepareMessageToBundId" name="Nachricht an Nutzerkonto Bund vorbereiten" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>// This code will be replaced by the build script. It is important
+// that this (or any other) comment is written here in the bpmn file
+// as the "buildModel" gradle task would otherwise create an empty
+// "xmlns" attribute, which would later lead to the very confusing
+// "Unexpected character" exception when trying to deploy the model.</script>
+    </scriptTask>
+    <sequenceFlow id="flow33" sourceRef="prepareMessageToBundId" targetRef="sendMessageToApplicant"></sequenceFlow>
     <textAnnotation id="textannotation4">
       <text>Antragsformular</text>
     </textAnnotation>
@@ -86,19 +92,6 @@ Sie können diese Seite nun schließen.</documentation>
     </textAnnotation>
     <association id="association6" sourceRef="textannotation6" targetRef="usertask1"></association>
     <association id="association7" sourceRef="textannotation6" targetRef="summaryForm"></association>
-    <textAnnotation id="textannotation7">
-      <text>TODO
-
-- FormKey anpassen
-- Buttons anpassen</text>
-    </textAnnotation>
-    <association id="association8" sourceRef="textannotation7" targetRef="summaryForm"></association>
-    <textAnnotation id="textannotation11">
-      <text>TODO:
-
-- 2 Platzhalter in den Attributen austauschen</text>
-    </textAnnotation>
-    <association id="association13" sourceRef="textannotation11" targetRef="sendMessageToApplicant"></association>
     <textAnnotation id="textannotation12">
       <text>Abschlussseite</text>
     </textAnnotation>
@@ -146,17 +139,14 @@ Sie können diese Seite nun schließen.</documentation>
       <bpmndi:BPMNShape bpmnElement="finalPage" id="BPMNShape_finalPage">
         <omgdc:Bounds height="60.0" width="100.0" x="2530.0" y="183.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="prepareMessageToBundId" id="BPMNShape_prepareMessageToBundId">
+        <omgdc:Bounds height="60.0" width="150.0" x="2170.0" y="182.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation4" id="BPMNShape_textannotation4">
         <omgdc:Bounds height="50.0" width="100.0" x="790.0" y="51.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation6" id="BPMNShape_textannotation6">
         <omgdc:Bounds height="50.0" width="100.0" x="1310.0" y="51.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation7" id="BPMNShape_textannotation7">
-        <omgdc:Bounds height="71.0" width="181.0" x="1269.0" y="320.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation11" id="BPMNShape_textannotation11">
-        <omgdc:Bounds height="102.0" width="100.0" x="2363.0" y="309.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation12" id="BPMNShape_textannotation12">
         <omgdc:Bounds height="50.0" width="100.0" x="2530.0" y="51.0"></omgdc:Bounds>
@@ -223,6 +213,10 @@ Sie können diese Seite nun schließen.</documentation>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
         <omgdi:waypoint x="1460.0" y="211.0"></omgdi:waypoint>
+        <omgdi:waypoint x="2170.0" y="212.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
+        <omgdi:waypoint x="2320.0" y="212.0"></omgdi:waypoint>
         <omgdi:waypoint x="2344.0" y="212.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association4" id="BPMNEdge_association4">
@@ -232,14 +226,6 @@ Sie können diese Seite nun schließen.</documentation>
       <bpmndi:BPMNEdge bpmnElement="association7" id="BPMNEdge_association7">
         <omgdi:waypoint x="1360.0" y="101.0"></omgdi:waypoint>
         <omgdi:waypoint x="1360.0" y="182.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association8" id="BPMNEdge_association8">
-        <omgdi:waypoint x="1359.0" y="320.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1360.0" y="242.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association13" id="BPMNEdge_association13">
-        <omgdi:waypoint x="2413.0" y="309.0"></omgdi:waypoint>
-        <omgdi:waypoint x="2412.0" y="240.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association15" id="BPMNEdge_association15">
         <omgdi:waypoint x="2580.0" y="309.0"></omgdi:waypoint>
