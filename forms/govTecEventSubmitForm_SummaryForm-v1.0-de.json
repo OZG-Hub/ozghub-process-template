@@ -17,7 +17,7 @@
                   "width": 12,
                   "additionalConfig": {
                     "@type": "AdditionalHintboxConfig",
-                    "text": "Bitte prüfen Sie Ihre unten gemachten Angaben. Anschließend können Sie im Prozess weitermachen.",
+                    "text": "Bitte prüfen Sie Ihre unten gemachten Angaben. Anschließend können Sie das Formular einreichen.",
                     "status": "INFO"
                   }
                 }
