@@ -9,7 +9,7 @@
 // "xmlns" attribute, which would later lead to the very confusing
 // "Unexpected character" exception when trying to deploy the model.</script>
     </scriptTask>
-    <userTask id="applicantForm" name="Formular am GovTec Campus Event 2024-02-07 einreichen" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:102:govTecEventSubmitForm_ApplicantForm:v1.0"></userTask>
+    <userTask id="applicantForm" name="Formular am GovTech Campus Event 2024-02-07 einreichen" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:102:govTecEventSubmitForm_ApplicantForm:v1.0"></userTask>
     <sequenceFlow id="flow1" sourceRef="processStart" targetRef="init"></sequenceFlow>
     <scriptTask id="validateForm" name="Formular validieren" scriptFormat="groovy" activiti:autoStoreVariables="false">
       <script>// This code will be replaced by the build script. It is important
@@ -33,7 +33,7 @@
     <sequenceFlow id="flow14" name="OK" sourceRef="exclusivegateway3" targetRef="generateSummary">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isFormValid == true}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="summaryForm" name="Formular am GovTec Campus Event 2024-02-07 einreichen - Zusammenfassung" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:102:govTecEventSubmitForm_SummaryForm:v1.0"></userTask>
+    <userTask id="summaryForm" name="Formular am GovTech Campus Event 2024-02-07 einreichen - Zusammenfassung" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="formular:102:govTecEventSubmitForm_SummaryForm:v1.0"></userTask>
     <sequenceFlow id="flow15" sourceRef="generateSummary" targetRef="summaryForm"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow16" sourceRef="summaryForm" targetRef="exclusivegateway4"></sequenceFlow>
