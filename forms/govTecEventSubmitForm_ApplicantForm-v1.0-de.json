@@ -21,8 +21,8 @@
                       "label": "Gruppe \"Taxi\""
                     },
                     {
-                      "value": "hund",
-                      "label": "Gruppe \"Hund\""
+                      "value": "strasse",
+                      "label": "Gruppe \"Sondernutzung Straße\""
                     }
                   ],
                   "value": "",
@@ -41,7 +41,7 @@
                   "width": 12,
                   "validationRules": [],
                   "required": true,
-                  "placeholder": "z. B. \"Die Golden Retriever\" oder \"Team Mercedes\""
+                  "placeholder": "z. B. \"Team Mercedes\" oder \"Die Schlossallee\""
                 }
               ]
             },
