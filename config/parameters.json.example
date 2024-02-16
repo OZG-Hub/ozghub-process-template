@@ -1,0 +1,7 @@
+{
+  "url": "https://sgwdev.behoerden-serviceportal.de",
+  "user": "myUser",
+  "duplicateProcesskeyAction": "UNDEPLOY",
+  "deploymentName": "DeploymentFromLocalRepository",
+  "versionName": "v1.0-SNAPSHOT"
+}

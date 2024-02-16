@@ -24,6 +24,8 @@ plugins {
 // https://central.sonatype.com/artifact/de.seitenbau.serviceportal/prozess-scripting-api
 String serviceportalPublicApiVersion = "1.165.4"
 
+initJsonParameters()
+
 repositories {
   mavenCentral()
 }
@@ -194,9 +196,41 @@ listScheduledUndeploymentsOzg {
   password = getVariableValue("password")
 }
 
+def initJsonParameters()
+{
+  def jsonFilename = project.hasProperty('parameters')
+          ? project.property('parameters')
+          : 'config/parameters.json'
+
+  def jsonParameters
+  def jsonParametersFile = file(jsonFilename)
+  if (jsonParametersFile.exists())
+  {
+    jsonParameters = new groovy.json.JsonSlurper().parseText(jsonParametersFile.text)
+    // merge arrays, e.g. ["a","b","c"], into multi-line strings, e.g. "a\nb\nc"
+    jsonParameters.replaceAll((key, value) -> {
+      if (value instanceof Collection)
+      {
+        return value.join('\n')
+      }
+      return value
+    })
+  }
+  else
+  {
+    jsonParameters = [:]
+  }
+
+  project.ext.set("jsonParameters", jsonParameters)
+}
+
 def getVariableValue(String name, defaultValue)
 {
-  return project.hasProperty(name) ? project.property(name) : defaultValue
+  def value = project.hasProperty(name)
+          ? project.property(name)
+          : project.jsonParameters[name] ?: defaultValue
+
+  return value
 }
 
 def getVariableValue(String name)
