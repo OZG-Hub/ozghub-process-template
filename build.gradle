@@ -169,7 +169,7 @@ def initJsonParameters()
 {
   def jsonFilename = project.hasProperty('parameters')
           ? project.property('parameters')
-          : 'parameters.json'
+          : 'config/parameters.json'
 
   def jsonParameters
   def jsonParametersFile = file(jsonFilename)

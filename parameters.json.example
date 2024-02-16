@@ -1,7 +1,0 @@
-{
-  "url": "https://sgwdev.behoerden-serviceportal.de",
-  "user": "myUser",
-  "duplicateProcesskeyAction": "ERROR",
-  "deploymentName": "ozghub-process-template",
-  "versionName": "v1.0"
-}
