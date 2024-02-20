@@ -238,9 +238,16 @@ def getVariableValue(String name)
   return getVariableValue(name, null)
 }
 
-def getVariableValueAsLocalDate(String name)
-{
-  DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern('dd.MM.yyyy')
-  String stringValue = getVariableValue(name)
-  return stringValue == null ? null : LocalDate.parse(stringValue, dateTimeFormatter)
+def getVariableValueAsLocalDate(String name) {
+  try {
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern('dd.MM.uuuu')
+    String stringValue = getVariableValue(name)
+    return stringValue == null
+            ? null
+            : LocalDate.parse(stringValue,dateTimeFormatter.withResolverStyle(ResolverStyle.STRICT))
+
+  } catch (Exception e) {
+    throw new RuntimeException("Der Parameter '" + name
+            + "' konnte nicht als Datum interpretiert werden: " + e.getMessage());
+  }
 }
