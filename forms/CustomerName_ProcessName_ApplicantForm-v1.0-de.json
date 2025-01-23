@@ -1,6 +1,7 @@
 {
   "id": "MandantId:CustomerName_ProcessName_ApplicantForm:v1.0",
   "title": "",
+  "engineVersion": "2",
   "sections": [],
   "source": {
     "service": "prozess",
