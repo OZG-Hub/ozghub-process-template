@@ -226,20 +226,18 @@ def initJsonParameters()
 }
 
 def getVariableValue(String name, defaultValue) {
-  def envValue = System.getenv("OZGH_${name.toUpperCase()}")
-
-  if (envValue != null) {
-    return envValue
-  }
-
   if (project.hasProperty(name)) {
     return project.property(name)
   }
 
   def jsonValue = project.jsonParameters[name]
-
   if (jsonValue != null) {
     return jsonValue
+  }
+  
+  def envValue = System.getenv("OZGH_${name.toUpperCase()}")
+  if (envValue != null) {
+    return envValue
   }
 
   return defaultValue
