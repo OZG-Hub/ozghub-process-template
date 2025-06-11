@@ -225,13 +225,22 @@ def initJsonParameters()
   project.ext.set("jsonParameters", jsonParameters)
 }
 
-def getVariableValue(String name, defaultValue)
-{
-  def value = project.hasProperty(name)
-          ? project.property(name)
-          : project.jsonParameters[name] ?: defaultValue
+def getVariableValue(String name, defaultValue) {
+  if (project.hasProperty(name)) {
+    return project.property(name)
+  }
 
-  return value
+  def jsonValue = project.jsonParameters[name]
+  if (jsonValue != null) {
+    return jsonValue
+  }
+  
+  def envValue = System.getenv("OZGH_${name.toUpperCase()}")
+  if (envValue != null) {
+    return envValue
+  }
+
+  return defaultValue
 }
 
 def getVariableValue(String name)
