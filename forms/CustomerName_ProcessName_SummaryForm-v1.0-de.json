@@ -28,14 +28,10 @@
               "fields": [
                 {
                   "id": "summary",
-                  "label": "",
+                  "label": "{{prozessinstanzvariable:summaryAsHtml}}",
                   "type": "TEXT",
                   "width": 12,
-                  "validationRules": [],
-                  "source": {
-                    "service": "prozess",
-                    "variableName": "summaryAsHtml"
-                  }
+                  "validationRules": []
                 }
               ]
             }

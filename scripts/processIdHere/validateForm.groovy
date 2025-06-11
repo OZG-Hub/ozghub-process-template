@@ -1,8 +1,6 @@
 package processIdHere
 
 import de.seitenbau.serviceportal.scripting.api.v1.ScriptingApiV1
-import de.seitenbau.serviceportal.scripting.api.v1.form.MessageTypeV1
-import de.seitenbau.serviceportal.scripting.api.v1.form.ValidationMessageV1
 import de.seitenbau.serviceportal.scripting.api.v1.form.content.FormContentV1
 import de.seitenbau.serviceportal.scripting.api.v1.form.content.FormFieldContentV1
 
