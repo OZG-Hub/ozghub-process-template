@@ -1,6 +1,7 @@
 {
   "id": "MandantId:CustomerName_ProcessName_SummaryForm:v1.0",
   "title": "Zusammenfassung",
+  "engineVersion": "2",
   "sections": [
     {
       "title": "",
@@ -27,14 +28,10 @@
               "fields": [
                 {
                   "id": "summary",
-                  "label": "",
+                  "label": "{{prozessinstanzvariable:summaryAsHtml}}",
                   "type": "TEXT",
                   "width": 12,
-                  "validationRules": [],
-                  "source": {
-                    "service": "prozess",
-                    "variableName": "summaryAsHtml"
-                  }
+                  "validationRules": []
                 }
               ]
             }

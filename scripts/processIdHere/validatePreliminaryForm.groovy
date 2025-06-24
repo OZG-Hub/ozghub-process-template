@@ -1,8 +1,6 @@
 package processIdHere
 
 import de.seitenbau.serviceportal.scripting.api.v1.ScriptingApiV1
-import de.seitenbau.serviceportal.scripting.api.v1.form.MessageTypeV1
-import de.seitenbau.serviceportal.scripting.api.v1.form.ValidationMessageV1
 import de.seitenbau.serviceportal.scripting.api.v1.form.content.FormContentV1
 import de.seitenbau.serviceportal.scripting.api.v1.form.content.FormFieldContentV1
 
@@ -15,7 +13,7 @@ FormContentV1 preliminaryForm = api.getVariable("preliminaryForm") as FormConten
 FormFieldContentV1 fieldToCheck = preliminaryForm.fields.get("groupId:0:fieldId") // TODO: Replace groupId and fieldId
 //                                                                                     with the values you set in your
 //                                                                                     form
-if (!yourComplexCheck(fieldToCheck.value as String)) {
+if (fieldToCheck != null && !yourComplexCheck(fieldToCheck.value as String)) {
   final String errorMsg = "todo" // TODO: Please add a helpful error message (in the language of your form) which tells
   //                                  your users what they need to do to fix the problem.
   fieldToCheck.addValidationMessage(errorMsg)

@@ -3,5 +3,6 @@
   "user": "myUser",
   "duplicateProcesskeyAction": "UNDEPLOY",
   "deploymentName": "DeploymentFromLocalRepository",
-  "versionName": "v1.0-SNAPSHOT"
+  "versionName": "v1.0-SNAPSHOT",
+  "engine": "engineV2"
 }

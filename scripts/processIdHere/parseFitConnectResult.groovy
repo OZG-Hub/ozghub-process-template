@@ -11,7 +11,7 @@ assert fitConnectResult != null
 String submissionId = fitConnectResult.submissionId
 String caseId = fitConnectResult.caseId
 
-api.logger.info.log("Sending data to FIT-Connect succeeded. submissionId = '$submissionId', caseId = '$caseId'")
+api.logger.info("Sending data to FIT-Connect succeeded. submissionId = '$submissionId', caseId = '$caseId'")
 
 // Used for Bund ID account message:
 api.setVariable("fitConnectCaseId", caseId)
