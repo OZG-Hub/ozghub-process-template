@@ -1,6 +1,6 @@
 package processIdHere
 
-import commons.serviceportal.forms.FormDumper
+import commons.serviceportal.forms.formdumper.HtmlDumper
 import de.seitenbau.serviceportal.scripting.api.v1.ScriptingApiV1
 import de.seitenbau.serviceportal.scripting.api.v1.form.content.FormContentV1
 
@@ -8,7 +8,7 @@ ScriptingApiV1 api = apiV1 // Variable is automatically set by Serviceportal pro
 FormContentV1 applicantForm = api.getVariable("applicantForm") as FormContentV1
 
 // Generate summary via the FormDumper class
-String summaryAsHtml = new FormDumper(applicantForm, api).dumpFormAsHtmlTable()
+String summaryAsHtml = new HtmlDumper(applicantForm, api, false).dump()
 
 // Store summary as process instance variable
 api.setVariable("summaryAsHtml", summaryAsHtml)

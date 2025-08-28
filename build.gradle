@@ -23,7 +23,7 @@ plugins {
 
 // The the public API is maintained by the Schildkröten Team and the most recent version listed on maven central:
 // https://central.sonatype.com/artifact/de.seitenbau.serviceportal/prozess-scripting-api
-String serviceportalPublicApiVersion = "1.194.9"
+String serviceportalPublicApiVersion = "1.197.7"
 
 initJsonParameters()
 
