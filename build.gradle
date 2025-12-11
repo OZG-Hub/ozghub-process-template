@@ -1,4 +1,5 @@
 import de.seitenbau.ozghub.prozessdeployment.model.request.DuplicateProcessKeyAction
+import groovy.json.JsonSlurper
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -7,23 +8,23 @@ import java.time.format.ResolverStyle
 plugins {
   id 'groovy'
 
-  // Used to build the process modell.
+  // Used to build the process model.
   // This plugin CAN NOT deploy to OZG-Hub (only SBW and Amt24).
   // Most recent version:
   // https://plugins.gradle.org/plugin/de.seitenbau.serviceportal.prozesspipeline
   // If you update this, dont forget to also update commons/serviceportal/build.gradle as well
-  id "de.seitenbau.serviceportal.prozesspipeline" version "2025.06.10-0"
+  id "de.seitenbau.serviceportal.prozesspipeline" version "2025.11.25-0"
 
   // Used to DEPLOY to OZG-Hub.
   // This plugin CAN NOT build the models by itself.
   // Most recent version:
   // https://plugins.gradle.org/plugin/de.seitenbau.ozghub.prozessdeployment
-  id "de.seitenbau.ozghub.prozessdeployment" version "2025.06.10-0"
+  id "de.seitenbau.ozghub.prozessdeployment" version "2025.11.25-0"
 }
 
 // The the public API is maintained by the Schildkröten Team and the most recent version listed on maven central:
 // https://central.sonatype.com/artifact/de.seitenbau.serviceportal/prozess-scripting-api
-String serviceportalPublicApiVersion = "1.197.7"
+String serviceportalPublicApiVersion = "1.202.4"
 
 initJsonParameters()
 
@@ -52,7 +53,7 @@ dependencies {
 
   // testing
   implementation group: 'net.bytebuddy', name: 'byte-buddy-gradle-plugin', version: '1.10.1'
-  testImplementation "org.spockframework:spock-core:2.0-M1-groovy-2.5"
+  testImplementation "org.spockframework:spock-core:2.3-groovy-2.5"
 }
 
 // Set source directories (where to compile and test from)
@@ -213,7 +214,7 @@ def initJsonParameters()
   def jsonParametersFile = file(jsonFilename)
   if (jsonParametersFile.exists())
   {
-    jsonParameters = new groovy.json.JsonSlurper().parseText(jsonParametersFile.text)
+    jsonParameters = new JsonSlurper().parseText(jsonParametersFile.text)
     // merge arrays, e.g. ["a","b","c"], into multi-line strings, e.g. "a\nb\nc"
     jsonParameters.replaceAll((key, value) -> {
       if (value instanceof Collection)
