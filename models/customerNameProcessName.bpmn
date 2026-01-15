@@ -39,7 +39,7 @@
     </sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow8" sourceRef="applicantForm" targetRef="exclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow9" name="&quot;Zurück&quot;" sourceRef="exclusivegateway2" targetRef="vorschaltseite">
+    <sequenceFlow id="flow9" name="Zurück" sourceRef="exclusivegateway2" targetRef="vorschaltseite">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${clickedButton == "back"}]]></conditionExpression>
     </sequenceFlow>
     <scriptTask id="validateForm" name="Formular validieren" scriptFormat="groovy" activiti:autoStoreVariables="false">
@@ -49,7 +49,7 @@
 // "xmlns" attribute, which would later lead to the very confusing
 // "Unexpected character" exception when trying to deploy the model.</script>
     </scriptTask>
-    <sequenceFlow id="flow10" name="&quot;Weiter&quot;" sourceRef="exclusivegateway2" targetRef="validateForm">
+    <sequenceFlow id="flow10" name="Weiter" sourceRef="exclusivegateway2" targetRef="validateForm">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${clickedButton == "continue"}]]></conditionExpression>
     </sequenceFlow>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
@@ -75,7 +75,7 @@
     <sequenceFlow id="flow17" sourceRef="exclusivegateway4" targetRef="setupPayment">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${clickedButton == "continue"}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow18" name="&quot;Angaben korrigieren&quot;" sourceRef="exclusivegateway4" targetRef="applicantForm">
+    <sequenceFlow id="flow18" name="Angaben korrigieren" sourceRef="exclusivegateway4" targetRef="applicantForm">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${clickedButton == "back"}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="payment" name="Bezahlung" activiti:assignee="${startParameter.startedByUser.userId}" activiti:formKey="payment">
