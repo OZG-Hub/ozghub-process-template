@@ -1,0 +1,12 @@
+{
+  "authenticationTypes": [
+    "BUND_ID",
+    "MUK"
+  ],
+  "levelOfAssuranceAttributes": {
+    "nachname": {
+      "level": "BASIS",
+      "required": true
+    }
+  }
+}
