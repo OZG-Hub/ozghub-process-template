@@ -1,3 +1,6 @@
 [submodule "commons/serviceportal"]
 	path = commons/serviceportal
 	url = https://github.com/OZG-Hub/serviceportale-commons.git
+[submodule "formularschema"]
+	path = formularschema
+	url = https://gitlab.opencode.de/OC000097948268/formularschema.git
