@@ -14,7 +14,7 @@
     <userTask id="vorschaltseite" name="TODO: Name Anpassen" activiti:formKey="formular:MandantId:CustomerName_ProcessName_PreliminaryForm:v1.0" activiti:assignee="${startParameter.startedByUser.userId}"></userTask>
     <userTask id="applicantForm" name="TODO: Name Anpassen" activiti:formKey="formular:MandantId:CustomerName_ProcessName_ApplicantForm:v1.0" activiti:assignee="${startParameter.startedByUser.userId}"></userTask>
     <sequenceFlow id="flow1" sourceRef="processStart" targetRef="init"></sequenceFlow>
-    <scriptTask id="readProcessParameters" name="Prozessparameter aus Jesaja auslesen" scriptFormat="groovy" activiti:autoStoreVariables="false">
+    <scriptTask id="readProcessParameters" name="Prozessparameter auslesen" scriptFormat="groovy" activiti:autoStoreVariables="false">
       <script>
         <![CDATA[// This code will be replaced by the build script. It is important
 // that this (or any other) comment is written here in the bpmn file
