@@ -233,8 +233,8 @@
     <sequenceFlow id="flow25" sourceRef="transferToFitConnect" targetRef="parseFitConnectResult"></sequenceFlow>
     <sequenceFlow id="flow26" sourceRef="showOnceAfterFitConnectError" targetRef="endevent1"></sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
-    <sequenceFlow id="flow27" sourceRef="parseFitConnectResult" targetRef="sendMessageToApplicant"></sequenceFlow>
-    <serviceTask id="sendMessageToApplicant" name="Nachricht an Nutzerkonto Bund schicken" activiti:class="de.seitenbau.serviceportal.prozess.servicetask.NachrichtVersendenService">
+    <sequenceFlow id="flow27" sourceRef="parseFitConnectResult" targetRef="zskTask"></sequenceFlow>
+    <serviceTask id="sendMessageToApplicant" name="Nachricht an Nutzerkonto Bund schicken" activiti:class="de.seitenbau.serviceportal.prozess.servicetask.NachrichtVersendenService" activiti:taskType="JavaClass">
       <extensionElements>
         <activiti:field name="empfaenger">
           <activiti:expression>
@@ -277,6 +277,21 @@ Sie können diese Seite nun schließen.
       </documentation>
     </userTask>
     <sequenceFlow id="flow29" sourceRef="finalPage" targetRef="endevent2"></sequenceFlow>
+    <serviceTask id="zskTask" name="ZSK aufrufen" activiti:class="de.seitenbau.serviceportal.prozess.servicetask.RecordInitialApplicationService" activiti:taskType="JavaClass">
+      <extensionElements>
+        <activiti:field name="ars">
+          <activiti:expression>
+            <![CDATA[${startParameter.ars}]]>
+          </activiti:expression>
+        </activiti:field>
+        <activiti:field name="leikaId">
+          <activiti:expression>
+            <![CDATA[${leistungsschluessel}]]>
+          </activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="Flow_1xvew8x" sourceRef="zskTask" targetRef="sendMessageToApplicant"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>
         <![CDATA[TODO:
@@ -449,17 +464,32 @@ Sie können diese Seite nun schließen.
         <omgdc:Bounds x="2190" y="182" width="100" height="60"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_endevent2" bpmnElement="endevent2">
-        <omgdc:Bounds x="2690" y="195" width="35" height="35"></omgdc:Bounds>
+        <omgdc:Bounds x="2917" y="195" width="35" height="35"></omgdc:Bounds>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="2925" y="230" width="20" height="14"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_sendMessageToApplicant" bpmnElement="sendMessageToApplicant">
-        <omgdc:Bounds x="2344" y="185" width="137" height="55"></omgdc:Bounds>
+        <omgdc:Bounds x="2571" y="184" width="137" height="55"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_finalPage" bpmnElement="finalPage">
-        <omgdc:Bounds x="2530" y="183" width="100" height="60"></omgdc:Bounds>
+        <omgdc:Bounds x="2757" y="183" width="100" height="60"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1aey7al_di" bpmnElement="zskTask">
+        <omgdc:Bounds x="2370" y="170" width="100" height="80"></omgdc:Bounds>
+        <bpmndi:BPMNLabel></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_association13" bpmnElement="association13">
+        <omgdi:waypoint x="2640" y="309"></omgdi:waypoint>
+        <omgdi:waypoint x="2639" y="239"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_association15" bpmnElement="association15">
+        <omgdi:waypoint x="2807" y="309"></omgdi:waypoint>
+        <omgdi:waypoint x="2807" y="243"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1lfpulk_di" bpmnElement="Association_1lfpulk">
-        <omgdi:waypoint x="2580" y="183"></omgdi:waypoint>
-        <omgdi:waypoint x="2580" y="91"></omgdi:waypoint>
+        <omgdi:waypoint x="2807" y="183"></omgdi:waypoint>
+        <omgdi:waypoint x="2807" y="91"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="BPMNShape_textannotation1" bpmnElement="textannotation1">
         <omgdc:Bounds x="221" y="320" width="199" height="71"></omgdc:Bounds>
@@ -490,12 +520,6 @@ Sie können diese Seite nun schließen.
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_textannotation10" bpmnElement="textannotation10">
         <omgdc:Bounds x="2073" y="309" width="100" height="102"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_textannotation11" bpmnElement="textannotation11">
-        <omgdc:Bounds x="2363" y="309" width="100" height="102"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_textannotation13" bpmnElement="textannotation13">
-        <omgdc:Bounds x="2530" y="309" width="100" height="102"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_boundaryerror1" bpmnElement="boundaryerror1">
         <omgdc:Bounds x="2110" y="170" width="30" height="30"></omgdc:Bounds>
@@ -631,15 +655,9 @@ Sie können diese Seite nun schließen.
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_flow27" bpmnElement="flow27">
         <omgdi:waypoint x="2290" y="212"></omgdi:waypoint>
-        <omgdi:waypoint x="2344" y="212"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_flow28" bpmnElement="flow28">
-        <omgdi:waypoint x="2481" y="212"></omgdi:waypoint>
-        <omgdi:waypoint x="2530" y="213"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_flow29" bpmnElement="flow29">
-        <omgdi:waypoint x="2630" y="213"></omgdi:waypoint>
-        <omgdi:waypoint x="2690" y="212"></omgdi:waypoint>
+        <omgdi:waypoint x="2330" y="212"></omgdi:waypoint>
+        <omgdi:waypoint x="2330" y="210"></omgdi:waypoint>
+        <omgdi:waypoint x="2370" y="210"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_association1" bpmnElement="association1">
         <omgdi:waypoint x="320" y="320"></omgdi:waypoint>
@@ -685,18 +703,30 @@ Sie können diese Seite nun schließen.
         <omgdi:waypoint x="2123" y="309"></omgdi:waypoint>
         <omgdi:waypoint x="2122" y="239"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_association13" bpmnElement="association13">
-        <omgdi:waypoint x="2413" y="309"></omgdi:waypoint>
-        <omgdi:waypoint x="2412" y="240"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_association15" bpmnElement="association15">
-        <omgdi:waypoint x="2580" y="309"></omgdi:waypoint>
-        <omgdi:waypoint x="2580" y="243"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BPMNShape_textannotation11" bpmnElement="textannotation11">
+        <omgdc:Bounds x="2590" y="309" width="100" height="102"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_textannotation13" bpmnElement="textannotation13">
+        <omgdc:Bounds x="2757" y="309" width="100" height="102"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0q8vl1l_di" bpmnElement="TextAnnotation_0q8vl1l">
-        <omgdc:Bounds x="2530" y="61" width="99.99999794078421" height="29.993252876477367"></omgdc:Bounds>
+        <omgdc:Bounds x="2757" y="61" width="100" height="30"></omgdc:Bounds>
         <bpmndi:BPMNLabel></bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow29" bpmnElement="flow29">
+        <omgdi:waypoint x="2857" y="213"></omgdi:waypoint>
+        <omgdi:waypoint x="2917" y="212"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow28" bpmnElement="flow28">
+        <omgdi:waypoint x="2708" y="210"></omgdi:waypoint>
+        <omgdi:waypoint x="2733" y="210"></omgdi:waypoint>
+        <omgdi:waypoint x="2733" y="214"></omgdi:waypoint>
+        <omgdi:waypoint x="2757" y="214"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1xvew8x_di" bpmnElement="Flow_1xvew8x">
+        <omgdi:waypoint x="2470" y="210"></omgdi:waypoint>
+        <omgdi:waypoint x="2571" y="211"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </definitions>
