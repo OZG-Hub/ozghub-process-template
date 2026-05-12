@@ -226,7 +226,7 @@
       <extensionElements>
         <activiti:field name="empfaenger">
           <activiti:expression>
-            <![CDATA[${startParameter.startedByUser.postfachHandle}]]>
+            <![CDATA[${startParameter.startedByUser.postfach.handle}]]>
           </activiti:expression>
         </activiti:field>
         <activiti:field name="betreff">
