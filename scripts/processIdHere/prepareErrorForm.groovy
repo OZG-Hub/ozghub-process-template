@@ -6,7 +6,7 @@ import de.seitenbau.serviceportal.scripting.api.v1.ScriptingApiV1
 ScriptingApiV1 api = apiV1 // Variable is automatically set by Serviceportal process engine
 
 // Write to log
-api.logger.warn("Failed to transfer data to FIT-Connect. Error 'fitConnectSubmissionServiceError' " +
+api.logger.warn("Failed to send message to user account. Error 'nachrichtVersendenError' " +
         "occurred. Please check logs for other entries indicating the actual error reason. User will now be sent to " +
         "a 'a error occurred' form.")
 
