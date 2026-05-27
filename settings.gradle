@@ -1,3 +1,5 @@
 rootProject.name = 'processTemplate-ozgHub' // TODO: Replace after forking the repository
 include "commons.serviceportal"
 project(':commons.serviceportal').projectDir = new File('commons/serviceportal')
+include "formularschema"
+project(':formularschema').projectDir = new File('formularschema')

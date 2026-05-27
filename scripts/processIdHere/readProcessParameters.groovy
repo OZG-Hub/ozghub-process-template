@@ -16,13 +16,13 @@ assert api?.startParameter?.leistung?.id != null: "Failed to initiate process. L
 assert api?.startParameter?.organisationseinheit?.id != null: "Failed to initiate process. OrgUnit-ID required but " +
         "was not provided. Please ensure that the process is provided a OrgUnit-ID via process-start-parameters."
 assert api.getStartParameter().parameters != null: "Failed to initiate process. Process parameters are not present. " +
-        "Please ensure least one parameter is configured in Jesaja."
+        "Please ensure least one parameter is configured."
 
 expectedParameters.each {parameterName ->
   def parameterValue = api.getStartParameter().parameters.get(parameterName)
   if (parameterValue == null) {
     throw new IllegalStateException("Failed to initialize process. Mandatory parameter '$parameterName' is not " +
-            "available. Please add this parameter to the Jesaja system.")
+            "available. Please add this parameter to the used system.")
   }
 }
 

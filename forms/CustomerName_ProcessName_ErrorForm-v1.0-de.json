@@ -1,0 +1,70 @@
+{
+  "id": "MandantId:CustomerName_ProcessName_ErrorForm:v1.0",
+  "title": "",
+  "engineVersion": "2",
+  "sections": [
+    {
+      "title": "",
+      "fieldGroups": [
+        {
+          "title": "",
+          "rows": [
+            {
+              "fields": [
+                {
+                  "id": "errorMessage",
+                  "label": "{{prozessinstanzvariable:errorMessageForUser}}",
+                  "type": "TEXT",
+                  "width": 12,
+                  "validationRules": []
+                }
+              ]
+            },
+            {
+              "fields": [
+                {
+                  "id": "downloadField",
+                  "type": "DOWNLOAD",
+                  "value": "Herunterladen",
+                  "width": 12,
+                  "externalDataSourceProperties": {
+                    "url": "prozess",
+                    "scope": "EMPTY",
+                    "fieldIds": [],
+                    "headers": {},
+                    "variableName": "applicantFormAsPdf",
+                    "@type": "ExternalDataSourceProperties"
+                  },
+                  "label": "Hier können Sie eine Kopie des Antrags herunterladen"
+                }
+              ]
+            }
+          ],
+          "id": "errorGroup",
+          "@type": "FieldGroup"
+        }
+      ]
+    }
+  ],
+  "source": {
+    "service": "prozess",
+    "variableName": "errorForm"
+  },
+  "target": {
+    "service": "prozess",
+    "variableName": "errorForm"
+  },
+  "customButtons": {
+    "buttons": [
+      {
+        "value": "end",
+        "label": "Beenden",
+        "primary": true
+      }
+    ],
+    "target": {
+      "service": "prozess",
+      "variableName": "errorClickedButton"
+    }
+  }
+}
