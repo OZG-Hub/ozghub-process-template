@@ -10,7 +10,7 @@ class ValidFormSpecification extends Specification {
             "CustomerName_ProcessName_ErrorForm-v1.0-de.json"
     ]
     forms.each { form ->
-      new FormValidator(getClass().getResourceAsStream(form).text).validate()
+      new FormValidator(getClass().getResourceAsStream(form).text).validate(true)
     }
 
     then:
