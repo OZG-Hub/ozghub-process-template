@@ -13,13 +13,13 @@ plugins {
   // Most recent version:
   // https://plugins.gradle.org/plugin/de.seitenbau.serviceportal.prozesspipeline
   // If you update this, dont forget to also update commons/serviceportal/build.gradle as well
-  id "de.seitenbau.serviceportal.prozesspipeline" version "2025.11.25-0"
+  id "de.seitenbau.serviceportal.prozesspipeline" version "2026.07.28-0"
 
   // Used to DEPLOY to OZG-Hub.
   // This plugin CAN NOT build the models by itself.
   // Most recent version:
   // https://plugins.gradle.org/plugin/de.seitenbau.ozghub.prozessdeployment
-  id "de.seitenbau.ozghub.prozessdeployment" version "2025.11.25-0"
+  id "de.seitenbau.ozghub.prozessdeployment" version "2026.07.28-0"
 }
 
 ext {
@@ -28,7 +28,7 @@ ext {
 
 // The the public API is maintained by the Schildkröten Team and the most recent version listed on maven central:
 // https://central.sonatype.com/artifact/de.seitenbau.serviceportal/prozess-scripting-api
-String serviceportalPublicApiVersion = "1.208.6"
+String serviceportalPublicApiVersion = "1.216.7"
 
 initJsonParameters()
 
